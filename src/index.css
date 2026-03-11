@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════════════════════
+   VALOR M&A ENGINE — Design System
+   "Courage Meets Capital"
+   ═══════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* Primary Colors */
+  --color-valor-black: #0B0F1A;
+  --color-valor-navy: #1A2340;
+  --color-valor-navy-light: #223058;
+  --color-valor-gold: #C5A44E;
+  --color-valor-gold-hover: #D4B568;
+  --color-valor-bronze: #8B7534;
+  --color-valor-ivory: #F4EDE4;
+  --color-valor-steel: #2C3E6B;
+
+  /* Status Colors */
+  --color-accretive: #4CAF50;
+  --color-accretive-dark: #2E7D32;
+  --color-dilutive: #E53935;
+  --color-caution: #FF9800;
+  --color-neutral-slate: #7C8DB0;
+
+  /* Typography */
+  --font-display: 'Playfair Display', serif;
+  --font-ui: 'Inter', sans-serif;
+  --font-data: 'IBM Plex Mono', monospace;
+}
+
+/* Global reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-ui);
+  background-color: var(--color-valor-black);
+  color: var(--color-valor-ivory);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Data numbers */
+.font-data {
+  font-family: var(--font-data);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-valor-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-valor-steel);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-valor-gold);
+}
+
+/* Number formatting utilities */
+.negative {
+  color: var(--color-dilutive);
+}
+
+.positive {
+  color: var(--color-accretive);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-gold {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(197, 164, 78, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(197, 164, 78, 0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-valor-navy) 25%,
+    var(--color-valor-steel) 50%,
+    var(--color-valor-navy) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Gold accent border utility */
+.gold-accent-left {
+  border-left: 3px solid var(--color-valor-gold);
+}
+
+/* Tooltip */
+.tooltip-trigger:hover + .tooltip-content {
+  opacity: 1;
+  pointer-events: auto;
+}

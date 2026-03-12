@@ -223,7 +223,13 @@ export default function DispatchPDF() {
       tableRow('Total Uses', `EGP ${fm(totalUses)}M`, true, COLORS.gold);
 
       const delta = totalSources - totalUses;
-      tableRow('Sources − Uses', `EGP ${fm(delta)}M`, true, Math.abs(delta) < 0.1 ? COLORS.green : COLORS.red);
+      const isBalanced = Math.abs(delta) < 0.1;
+      tableRow(
+        isBalanced ? 'Sources = Uses  BALANCED' : 'Sources =/= Uses  IMBALANCED',
+        isBalanced ? `EGP ${fm(delta)}M` : `Variance: EGP ${fm(Math.abs(delta))}M`,
+        true,
+        isBalanced ? COLORS.green : COLORS.red
+      );
 
       addFooter(doc.getNumberOfPages());
 
@@ -377,7 +383,7 @@ export default function DispatchPDF() {
       tableRow('Progress', `${completed} / ${regItems.length} (${Math.round(completed / regItems.length * 100)}%)`, true,
         completed === regItems.length ? COLORS.green : COLORS.gold);
       regItems.forEach(([label, done]) => {
-        tableRow(`${done ? '☑' : '☐'} ${label}`, done ? 'Complete' : 'Pending', false, done ? COLORS.green : COLORS.steel);
+        tableRow(`${done ? '[x]' : '[ ]'} ${label}`, done ? 'Complete' : 'Pending', false, done ? COLORS.green : COLORS.steel);
       });
 
       /* ── EGYPT PARAMETERS TABLE ──────────────────────────── */

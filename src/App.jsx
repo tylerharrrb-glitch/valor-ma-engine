@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { DealProvider, useDeal } from './context/DealContext';
 import Navbar from './components/layout/Navbar';
 import Sidebar from './components/layout/Sidebar';
@@ -15,6 +15,7 @@ import FootballField from './components/fairness/FootballField';
 import PrecedentTransactions from './components/precedents/PrecedentTransactions';
 import RegulatoryChecklist from './components/regulatory/RegulatoryChecklist';
 import DispatchPDF from './components/dispatch/DispatchPDF';
+import ValorAnalyst from './components/analyst/ValorAnalyst';
 
 function LBOModule() {
   const { state } = useDeal();
@@ -25,6 +26,23 @@ function LBOModule() {
 function AppContent() {
   const { state } = useDeal();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [analystOpen, setAnalystOpen] = useState(false);
+
+  const dealData = useMemo(() => ({
+    campaign: {
+      name: state.campaignName,
+      status: state.status,
+      currency: state.currency,
+      fxRate: state.fxRateUSDEGP,
+    },
+    acquirer: state.acquirer,
+    target: state.target,
+    dealTerms: state.dealTerms,
+    sourcesUses: state.sourcesUses,
+    synergies: state.synergies,
+    lbo: state.lbo,
+    fairness: state.fairness,
+  }), [state]);
 
   const renderModule = () => {
     switch (state.activeModule) {
@@ -53,11 +71,15 @@ function AppContent() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#0B0F1A' }}>
-      <Navbar />
+      <Navbar analystOpen={analystOpen} setAnalystOpen={setAnalystOpen} />
       <Sidebar />
       <main
         className="pt-14 transition-all duration-300"
-        style={{ marginLeft: '200px' }}
+        style={{
+          marginLeft: '200px',
+          marginRight: analystOpen ? '420px' : '0',
+          transition: 'margin-right 0.2s ease',
+        }}
       >
         <div className="p-6 max-w-[1400px] mx-auto">
           {renderModule()}
@@ -75,6 +97,12 @@ function AppContent() {
           </p>
         </footer>
       </main>
+
+      <ValorAnalyst
+        dealData={dealData}
+        isOpen={analystOpen}
+        onClose={() => setAnalystOpen(false)}
+      />
     </div>
   );
 }

@@ -3,7 +3,7 @@ import { useDeal } from '../../context/DealContext';
 import { DollarSign } from 'lucide-react';
 import ValorMark from '../shared/ValorMark';
 
-export default function Navbar() {
+export default function Navbar({ analystOpen, setAnalystOpen }) {
   const { state, dispatch } = useDeal();
   const [editingName, setEditingName] = useState(false);
   const [editingFx, setEditingFx] = useState(false);
@@ -86,6 +86,23 @@ export default function Navbar() {
 
       {/* Right: Currency Toggle + FX Rate */}
       <div className="flex items-center gap-3">
+        <button
+          onClick={() => setAnalystOpen(prev => !prev)}
+          style={{
+            padding: '6px 14px',
+            backgroundColor: analystOpen ? '#C5A44E' : '#1A2340',
+            color: analystOpen ? '#0B0F1A' : '#C5A44E',
+            border: '1px solid #C5A44E',
+            borderRadius: '5px',
+            fontWeight: 700,
+            fontSize: '11px',
+            letterSpacing: '0.08em',
+            cursor: 'pointer',
+            transition: 'all 0.15s',
+          }}
+        >
+          {analystOpen ? 'CLOSE ANALYST' : 'ANALYST'}
+        </button>
         <button
           onClick={toggleCurrency}
           className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded transition-all cursor-pointer"

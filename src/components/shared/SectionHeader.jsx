@@ -1,18 +1,21 @@
-export default function SectionHeader({ title, subtitle }) {
+export default function SectionHeader({ label, title, subtitle }) {
   return (
-    <div className="mb-6">
-      <h2
-        className="text-lg font-bold tracking-wide"
-        style={{ fontFamily: "'Playfair Display', serif", color: '#F4EDE4' }}
-      >
-        {title}
-      </h2>
+    <div style={{ marginBottom: '28px' }}>
+      {label && (
+        <span className="section-label">{label}</span>
+      )}
+      <h2 className="section-title">{title}</h2>
       {subtitle && (
-        <p className="text-xs mt-1" style={{ color: '#7C8DB0' }}>
+        <p style={{
+          fontFamily: 'var(--ff-mono)',
+          fontSize: '.85rem',
+          color: 'var(--text-secondary)',
+          marginTop: '-20px',
+          marginBottom: '28px',
+        }}>
           {subtitle}
         </p>
       )}
-      <div className="mt-2 h-px w-16" style={{ backgroundColor: '#C5A44E' }} />
     </div>
   );
 }

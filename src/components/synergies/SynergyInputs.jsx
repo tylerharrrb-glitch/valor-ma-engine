@@ -44,23 +44,24 @@ export default function SynergyInputs() {
   return (
     <div className="space-y-8 animate-fade-in">
       <SectionHeader
+        label="03 — SYNERGY ENGINE"
         title="Synergy Analysis"
         subtitle="Quantify, phase-in, tax-effect, and NPV-discount synergies created by the combination"
       />
 
       {/* ── REVENUE SYNERGIES GRID ── */}
-      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-        <div className="px-4 py-3 border-b" style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
-          <h3 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Revenue Synergies (EGP M)</h3>
-          <p className="text-xs mt-0.5" style={{ color: '#7C8DB0' }}>Enter incremental revenue by category for each year</p>
+      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+        <div className="px-4 py-3 border-b" style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45' }}>
+          <h3 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Revenue Synergies (EGP M)</h3>
+          <p className="text-xs mt-0.5" style={{ color: '#8892A4' }}>Enter incremental revenue by category for each year</p>
         </div>
         <div className="p-4 overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr>
-                <th className="text-left px-2 py-2 text-xs font-semibold" style={{ color: '#7C8DB0', minWidth: '180px' }}>Category</th>
+                <th className="text-left px-2 py-2 text-xs font-semibold" style={{ color: '#8892A4', minWidth: '180px' }}>Category</th>
                 {YEARS.map((y) => (
-                  <th key={y} className="text-center px-2 py-2 text-xs font-semibold" style={{ color: '#C5A44E', minWidth: '100px' }}>
+                  <th key={y} className="text-center px-2 py-2 text-xs font-semibold" style={{ color: '#C9A84C', minWidth: '100px' }}>
                     Year {y}
                   </th>
                 ))}
@@ -68,8 +69,8 @@ export default function SynergyInputs() {
             </thead>
             <tbody>
               {REVENUE_CATEGORIES.map((cat, ri) => (
-                <tr key={cat.key} style={{ backgroundColor: ri % 2 === 0 ? '#1A2340' : '#1e2a4a' }}>
-                  <td className="px-2 py-2 text-xs font-medium" style={{ color: '#F4EDE4' }}>{cat.label}</td>
+                <tr key={cat.key} style={{ backgroundColor: ri % 2 === 0 ? '#141B2D' : '#182236' }}>
+                  <td className="px-2 py-2 text-xs font-medium" style={{ color: '#F0F4FF' }}>{cat.label}</td>
                   {YEARS.map((y, yi) => (
                     <td key={y} className="px-1 py-1">
                       <input
@@ -80,12 +81,12 @@ export default function SynergyInputs() {
                           const v = parseFloat(e.target.value) || 0;
                           updateRevCategory(cat.key, yi, v);
                         }}
-                        className="w-full bg-transparent text-right px-2 py-1.5 text-xs rounded border focus:outline-none focus:border-[#C5A44E] transition-colors"
+                        className="w-full bg-transparent text-right px-2 py-1.5 text-xs rounded border focus:outline-none focus:border-[#C9A84C] transition-colors"
                         style={{
                           fontFamily: "'IBM Plex Mono', monospace",
-                          color: '#F4EDE4',
-                          borderColor: '#2C3E6B',
-                          backgroundColor: '#0B0F1A',
+                          color: '#F0F4FF',
+                          borderColor: '#1E2D45',
+                          backgroundColor: '#0A0E17',
                         }}
                         placeholder="0"
                       />
@@ -94,12 +95,12 @@ export default function SynergyInputs() {
                 </tr>
               ))}
               {/* Totals row */}
-              <tr style={{ borderTop: '2px solid #C5A44E' }}>
-                <td className="px-2 py-2 text-xs font-bold" style={{ color: '#C5A44E' }}>Total Revenue Synergies</td>
+              <tr style={{ borderTop: '2px solid #C9A84C' }}>
+                <td className="px-2 py-2 text-xs font-bold" style={{ color: '#C9A84C' }}>Total Revenue Synergies</td>
                 {YEARS.map((y, yi) => {
                   const total = REVENUE_CATEGORIES.reduce((sum, cat) => sum + (syn[cat.key][yi] || 0), 0);
                   return (
-                    <td key={y} className="px-2 py-2 text-right text-xs font-bold" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#C5A44E' }}>
+                    <td key={y} className="px-2 py-2 text-right text-xs font-bold" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#C9A84C' }}>
                       {formatNumber(total, 1)}
                     </td>
                   );
@@ -113,28 +114,28 @@ export default function SynergyInputs() {
       {/* ── COST SYNERGIES ── */}
       <div className="grid grid-cols-2 gap-6">
         {/* Headcount */}
-        <div className="rounded-lg border p-4" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
+        <div className="rounded-lg border p-4" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
           <div className="flex items-center gap-2 mb-4">
-            <Users className="w-4 h-4" style={{ color: '#C5A44E' }} />
-            <h4 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Headcount Reduction</h4>
+            <Users className="w-4 h-4" style={{ color: '#C9A84C' }} />
+            <h4 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Headcount Reduction</h4>
           </div>
           <div className="space-y-3">
             <InputField label="Redundant Positions" value={syn.redundantPositions} onChange={(v) => update({ redundantPositions: v })} suffix="roles" tooltip="Number of redundant roles to be eliminated" />
             <InputField label="Avg Annual Salary" value={syn.avgAnnualSalary} onChange={(v) => update({ avgAnnualSalary: v })} tooltip="Average annual gross salary per role (EGP M)" />
-            <div className="mt-2 px-3 py-2 rounded text-xs" style={{ backgroundColor: '#0B0F1A' }}>
-              <div className="flex justify-between" style={{ color: '#7C8DB0' }}>
+            <div className="mt-2 px-3 py-2 rounded text-xs" style={{ backgroundColor: '#0A0E17' }}>
+              <div className="flex justify-between" style={{ color: '#8892A4' }}>
                 <span>Salary Savings</span>
-                <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>
+                <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F0F4FF' }}>
                   {formatNumber(syn.redundantPositions * syn.avgAnnualSalary, 1)}M
                 </span>
               </div>
-              <div className="flex justify-between mt-1" style={{ color: '#7C8DB0' }}>
+              <div className="flex justify-between mt-1" style={{ color: '#8892A4' }}>
                 <span>Social Insurance ({(EGYPT_PARAMS.SOCIAL_INSURANCE_EMPLOYER_RATE * 100).toFixed(2)}%)</span>
-                <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>
+                <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F0F4FF' }}>
                   {formatNumber(syn.redundantPositions * syn.avgAnnualSalary * EGYPT_PARAMS.SOCIAL_INSURANCE_EMPLOYER_RATE, 1)}M
                 </span>
               </div>
-              <div className="flex justify-between mt-1 pt-1 border-t" style={{ borderColor: '#2C3E6B', color: '#C5A44E' }}>
+              <div className="flex justify-between mt-1 pt-1 border-t" style={{ borderColor: '#1E2D45', color: '#C9A84C' }}>
                 <span className="font-semibold">Run-Rate Synergy</span>
                 <span style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
                   {formatNumber(syn.redundantPositions * syn.avgAnnualSalary * (1 + EGYPT_PARAMS.SOCIAL_INSURANCE_EMPLOYER_RATE), 1)}M
@@ -145,16 +146,16 @@ export default function SynergyInputs() {
         </div>
 
         {/* Facilities */}
-        <div className="rounded-lg border p-4" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
+        <div className="rounded-lg border p-4" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
           <div className="flex items-center gap-2 mb-4">
-            <Building2 className="w-4 h-4" style={{ color: '#C5A44E' }} />
-            <h4 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Facility Consolidation</h4>
+            <Building2 className="w-4 h-4" style={{ color: '#C9A84C' }} />
+            <h4 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Facility Consolidation</h4>
           </div>
           <div className="space-y-3">
             <InputField label="Duplicate Facilities" value={syn.duplicateFacilities} onChange={(v) => update({ duplicateFacilities: v })} suffix="sites" tooltip="Number of offices/warehouses to close" />
             <InputField label="Avg Annual Rent/Facility" value={syn.avgRentPerFacility} onChange={(v) => update({ avgRentPerFacility: v })} tooltip="Average annual rental cost per facility (EGP M)" />
-            <div className="mt-2 px-3 py-2 rounded text-xs" style={{ backgroundColor: '#0B0F1A' }}>
-              <div className="flex justify-between" style={{ color: '#C5A44E' }}>
+            <div className="mt-2 px-3 py-2 rounded text-xs" style={{ backgroundColor: '#0A0E17' }}>
+              <div className="flex justify-between" style={{ color: '#C9A84C' }}>
                 <span className="font-semibold">Run-Rate Synergy</span>
                 <span style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
                   {formatNumber(syn.duplicateFacilities * syn.avgRentPerFacility, 1)}M
@@ -165,16 +166,16 @@ export default function SynergyInputs() {
         </div>
 
         {/* Procurement */}
-        <div className="rounded-lg border p-4" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
+        <div className="rounded-lg border p-4" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
           <div className="flex items-center gap-2 mb-4">
-            <ShoppingCart className="w-4 h-4" style={{ color: '#C5A44E' }} />
-            <h4 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Procurement Savings</h4>
+            <ShoppingCart className="w-4 h-4" style={{ color: '#C9A84C' }} />
+            <h4 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Procurement Savings</h4>
           </div>
           <div className="space-y-3">
             <InputField label="Combined Procurement Spend" value={syn.combinedProcurementSpend} onChange={(v) => update({ combinedProcurementSpend: v })} tooltip="Combined annual COGS + procurement spend" />
             <InputField label="Procurement Discount" value={syn.procurementDiscountPct} onChange={(v) => update({ procurementDiscountPct: v })} suffix="%" tooltip="% discount from volume leverage" step={0.1} />
-            <div className="mt-2 px-3 py-2 rounded text-xs" style={{ backgroundColor: '#0B0F1A' }}>
-              <div className="flex justify-between" style={{ color: '#C5A44E' }}>
+            <div className="mt-2 px-3 py-2 rounded text-xs" style={{ backgroundColor: '#0A0E17' }}>
+              <div className="flex justify-between" style={{ color: '#C9A84C' }}>
                 <span className="font-semibold">Run-Rate Synergy</span>
                 <span style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
                   {formatNumber(syn.combinedProcurementSpend * (syn.procurementDiscountPct / 100), 1)}M
@@ -185,19 +186,19 @@ export default function SynergyInputs() {
         </div>
 
         {/* IT + SG&A */}
-        <div className="rounded-lg border p-4" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
+        <div className="rounded-lg border p-4" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
           <div className="space-y-4">
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <Monitor className="w-4 h-4" style={{ color: '#C5A44E' }} />
-                <h4 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Technology Consolidation</h4>
+                <Monitor className="w-4 h-4" style={{ color: '#C9A84C' }} />
+                <h4 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Technology Consolidation</h4>
               </div>
               <InputField label="Annual IT Savings" value={syn.itSavings} onChange={(v) => update({ itSavings: v })} tooltip="Licenses, maintenance, duplicate systems" />
             </div>
-            <div className="pt-3 border-t" style={{ borderColor: '#2C3E6B' }}>
+            <div className="pt-3 border-t" style={{ borderColor: '#1E2D45' }}>
               <div className="flex items-center gap-2 mb-3">
-                <PieChart className="w-4 h-4" style={{ color: '#C5A44E' }} />
-                <h4 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>SG&A Overlap</h4>
+                <PieChart className="w-4 h-4" style={{ color: '#C9A84C' }} />
+                <h4 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>SG&A Overlap</h4>
               </div>
               <div className="space-y-3">
                 <InputField label="Combined SG&A" value={syn.combinedSGA} onChange={(v) => update({ combinedSGA: v })} tooltip="Combined annual SG&A of both entities" />
@@ -209,16 +210,16 @@ export default function SynergyInputs() {
       </div>
 
       {/* ── PHASE-IN SCHEDULE ── */}
-      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-        <div className="px-4 py-3 border-b" style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
-          <h3 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Cost Synergy Phase-In Schedule</h3>
-          <p className="text-xs mt-0.5" style={{ color: '#7C8DB0' }}>Percentage of run-rate cost synergies realized each year</p>
+      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+        <div className="px-4 py-3 border-b" style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45' }}>
+          <h3 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Cost Synergy Phase-In Schedule</h3>
+          <p className="text-xs mt-0.5" style={{ color: '#8892A4' }}>Percentage of run-rate cost synergies realized each year</p>
         </div>
         <div className="p-4">
           <div className="grid grid-cols-5 gap-4">
             {YEARS.map((y, yi) => (
               <div key={y} className="text-center">
-                <label className="text-xs font-medium block mb-2" style={{ color: '#7C8DB0' }}>Year {y}</label>
+                <label className="text-xs font-medium block mb-2" style={{ color: '#8892A4' }}>Year {y}</label>
                 <input
                   type="number"
                   min={0}
@@ -226,24 +227,24 @@ export default function SynergyInputs() {
                   step={5}
                   value={syn.phaseIn[yi]}
                   onChange={(e) => updatePhaseIn(yi, parseFloat(e.target.value) || 0)}
-                  className="w-full text-center px-2 py-2 text-sm rounded border focus:outline-none focus:border-[#C5A44E] transition-colors"
+                  className="w-full text-center px-2 py-2 text-sm rounded border focus:outline-none focus:border-[#C9A84C] transition-colors"
                   style={{
                     fontFamily: "'IBM Plex Mono', monospace",
-                    color: '#F4EDE4',
-                    borderColor: '#2C3E6B',
-                    backgroundColor: '#0B0F1A',
+                    color: '#F0F4FF',
+                    borderColor: '#1E2D45',
+                    backgroundColor: '#0A0E17',
                   }}
                 />
-                <div className="mt-2 h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#0B0F1A' }}>
+                <div className="mt-2 h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#0A0E17' }}>
                   <div
                     className="h-full rounded-full transition-all duration-300"
                     style={{
                       width: `${syn.phaseIn[yi]}%`,
-                      backgroundColor: syn.phaseIn[yi] >= 100 ? '#4CAF50' : syn.phaseIn[yi] >= 75 ? '#C5A44E' : '#FF9800',
+                      backgroundColor: syn.phaseIn[yi] >= 100 ? '#4ade80' : syn.phaseIn[yi] >= 75 ? '#C9A84C' : '#FF9800',
                     }}
                   />
                 </div>
-                <span className="text-xs mt-1 block" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#7C8DB0' }}>
+                <span className="text-xs mt-1 block" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#8892A4' }}>
                   {syn.phaseIn[yi]}%
                 </span>
               </div>
@@ -253,19 +254,19 @@ export default function SynergyInputs() {
       </div>
 
       {/* ── INTEGRATION COSTS ── */}
-      <div className="rounded-lg border p-4" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-        <h3 className="text-sm font-semibold mb-4" style={{ color: '#C5A44E' }}>Integration Costs (One-Time — Year 0)</h3>
+      <div className="rounded-lg border p-4" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+        <h3 className="text-sm font-semibold mb-4" style={{ color: '#C9A84C' }}>Integration Costs (One-Time — Year 0)</h3>
         <div className="grid grid-cols-3 gap-6">
           <div className="space-y-3">
             <InputField label="Avg Years of Service" value={syn.avgYearsOfService} onChange={(v) => update({ avgYearsOfService: v })} suffix="years" tooltip="Average tenure for redundant employees" step={0.5} />
-            <div className="px-3 py-2 rounded text-xs" style={{ backgroundColor: '#0B0F1A' }}>
-              <div className="flex justify-between" style={{ color: '#7C8DB0' }}>
+            <div className="px-3 py-2 rounded text-xs" style={{ backgroundColor: '#0A0E17' }}>
+              <div className="flex justify-between" style={{ color: '#8892A4' }}>
                 <span>Severance (auto-calc)</span>
-                <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>
+                <span style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F0F4FF' }}>
                   {formatNumber(severanceAuto, 1)}M
                 </span>
               </div>
-              <p className="text-[10px] mt-1" style={{ color: '#7C8DB0' }}>
+              <p className="text-[10px] mt-1" style={{ color: '#8892A4' }}>
                 Egyptian Labor Law Art. 120 — {EGYPT_PARAMS.SEVERANCE_MONTHS_PER_YEAR_OF_SERVICE} months/year
               </p>
             </div>
@@ -281,7 +282,7 @@ export default function SynergyInputs() {
         </div>
 
         {/* WACC Input */}
-        <div className="mt-4 pt-4 border-t" style={{ borderColor: '#2C3E6B' }}>
+        <div className="mt-4 pt-4 border-t" style={{ borderColor: '#1E2D45' }}>
           <div className="max-w-xs">
             <InputField label="WACC (for NPV)" value={(syn.wacc || 0) * 100} onChange={(v) => update({ wacc: v / 100 })} suffix="%" tooltip="Weighted Average Cost of Capital — used to discount synergies" step={0.5} />
           </div>

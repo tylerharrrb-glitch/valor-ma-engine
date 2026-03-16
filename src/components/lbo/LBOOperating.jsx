@@ -35,20 +35,20 @@ export default function LBOOperating({ calc }) {
 
   const cellInput = {
     fontFamily: "'IBM Plex Mono', monospace",
-    color: '#F4EDE4',
-    backgroundColor: '#0B0F1A',
-    borderColor: '#2C3E6B',
+    color: '#F0F4FF',
+    backgroundColor: '#0A0E17',
+    borderColor: '#1E2D45',
   };
 
   return (
     <div className="space-y-6 mt-8">
       {/* ── 5-YEAR OPERATING MODEL INPUTS ── */}
-      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-        <div className="px-4 py-3 border-b flex items-center gap-2" style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
-          <TrendingUp className="w-4 h-4" style={{ color: '#C5A44E' }} />
+      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+        <div className="px-4 py-3 border-b flex items-center gap-2" style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45' }}>
+          <TrendingUp className="w-4 h-4" style={{ color: '#C9A84C' }} />
           <div>
-            <h3 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>5-Year Operating Model</h3>
-            <p className="text-xs mt-0.5" style={{ color: '#7C8DB0' }}>Enter assumptions for each year. Double-click a value to apply it to all years.</p>
+            <h3 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>5-Year Operating Model</h3>
+            <p className="text-xs mt-0.5" style={{ color: '#8892A4' }}>Enter assumptions for each year. Double-click a value to apply it to all years.</p>
           </div>
         </div>
 
@@ -56,9 +56,9 @@ export default function LBOOperating({ calc }) {
           <table className="w-full text-sm">
             <thead>
               <tr>
-                <th className="text-left px-2 py-2 text-xs font-semibold" style={{ color: '#7C8DB0', minWidth: '160px' }}>Assumption</th>
+                <th className="text-left px-2 py-2 text-xs font-semibold" style={{ color: '#8892A4', minWidth: '160px' }}>Assumption</th>
                 {YEARS.map((y) => (
-                  <th key={y} className="text-center px-2 py-2 text-xs font-semibold" style={{ color: '#C5A44E', minWidth: '90px' }}>
+                  <th key={y} className="text-center px-2 py-2 text-xs font-semibold" style={{ color: '#C9A84C', minWidth: '90px' }}>
                     Year {y}
                   </th>
                 ))}
@@ -66,10 +66,10 @@ export default function LBOOperating({ calc }) {
             </thead>
             <tbody>
               {OP_ROWS.map((row, ri) => (
-                <tr key={row.key} style={{ backgroundColor: ri % 2 === 0 ? '#1A2340' : '#1e2a4a' }}>
-                  <td className="px-2 py-2 text-xs font-medium" style={{ color: '#F4EDE4' }}>
+                <tr key={row.key} style={{ backgroundColor: ri % 2 === 0 ? '#141B2D' : '#182236' }}>
+                  <td className="px-2 py-2 text-xs font-medium" style={{ color: '#F0F4FF' }}>
                     {row.label}
-                    <span className="ml-1 text-[10px]" style={{ color: '#7C8DB0' }}>{row.suffix}</span>
+                    <span className="ml-1 text-[10px]" style={{ color: '#8892A4' }}>{row.suffix}</span>
                   </td>
                   {YEARS.map((y, yi) => (
                     <td key={y} className="px-1 py-1">
@@ -79,7 +79,7 @@ export default function LBOOperating({ calc }) {
                         value={l.operating[yi][row.key] || ''}
                         onChange={(e) => updateOp(yi, row.key, parseFloat(e.target.value) || 0)}
                         onDoubleClick={() => fillAllYears(row.key, l.operating[yi][row.key])}
-                        className="w-full text-center text-xs px-1 py-1.5 rounded border focus:outline-none focus:border-[#C5A44E] bg-transparent transition-colors"
+                        className="w-full text-center text-xs px-1 py-1.5 rounded border focus:outline-none focus:border-[#C9A84C] bg-transparent transition-colors"
                         style={cellInput}
                         placeholder="0"
                       />
@@ -93,8 +93,8 @@ export default function LBOOperating({ calc }) {
 
         {/* Derived values (read-only) */}
         {calc && (
-          <div className="border-t p-4 overflow-x-auto" style={{ borderColor: '#2C3E6B' }}>
-            <p className="text-xs font-semibold mb-3" style={{ color: '#C5A44E' }}>Derived Financials (EGP M)</p>
+          <div className="border-t p-4 overflow-x-auto" style={{ borderColor: '#1E2D45' }}>
+            <p className="text-xs font-semibold mb-3" style={{ color: '#C9A84C' }}>Derived Financials (EGP M)</p>
             <table className="w-full text-sm">
               <tbody>
                 <DerivedRow label="Revenue" values={calc.revenue} formatNumber={formatNumber} />
@@ -120,10 +120,10 @@ export default function LBOOperating({ calc }) {
 
 function DerivedRow({ label, values, formatNumber, bold = false, alt = false, highlight = false, negative = false }) {
   return (
-    <tr style={{ backgroundColor: alt ? '#1e2a4a' : '#1A2340' }}>
+    <tr style={{ backgroundColor: alt ? '#182236' : '#141B2D' }}>
       <td
         className={`px-2 py-1.5 text-xs ${bold ? 'font-bold' : 'font-medium'}`}
-        style={{ color: bold ? '#C5A44E' : '#F4EDE4', minWidth: '160px' }}
+        style={{ color: bold ? '#C9A84C' : '#F0F4FF', minWidth: '160px' }}
       >
         {label}
       </td>
@@ -133,7 +133,7 @@ function DerivedRow({ label, values, formatNumber, bold = false, alt = false, hi
           className={`px-2 py-1.5 text-right text-xs ${bold ? 'font-bold' : ''}`}
           style={{
             fontFamily: "'IBM Plex Mono', monospace",
-            color: v < 0 ? '#E53935' : highlight ? '#4CAF50' : bold ? '#C5A44E' : '#F4EDE4',
+            color: v < 0 ? '#f87171' : highlight ? '#4ade80' : bold ? '#C9A84C' : '#F0F4FF',
             minWidth: '90px',
           }}
         >

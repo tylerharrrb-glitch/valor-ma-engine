@@ -1,26 +1,38 @@
 export default function MetricCard({ title, value, subtitle, accentColor, icon: Icon }) {
+  const goldColor = 'var(--accent-gold)';
+  const accent = accentColor || goldColor;
+
   return (
-    <div
-      className="rounded-lg p-4 border-l-3 flex flex-col gap-1 animate-fade-in"
-      style={{
-        backgroundColor: '#1A2340',
-        borderLeftColor: accentColor || '#C5A44E',
-      }}
-    >
-      <div className="flex items-center justify-between">
-        <span className="text-xs font-medium uppercase tracking-wider" style={{ color: '#7C8DB0' }}>
+    <div className="card" style={{ padding: '24px', borderLeft: `3px solid ${accent}` }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+        <span style={{
+          fontFamily: 'var(--ff-mono)',
+          fontSize: '.72rem',
+          textTransform: 'uppercase',
+          letterSpacing: '1px',
+          color: 'var(--text-secondary)',
+        }}>
           {title}
         </span>
-        {Icon && <Icon className="w-4 h-4" style={{ color: accentColor || '#C5A44E' }} />}
+        {Icon && <Icon style={{ width: 16, height: 16, color: accent }} />}
       </div>
-      <div
-        className="text-xl font-bold"
-        style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}
-      >
+      <div style={{
+        fontFamily: 'var(--ff-display)',
+        fontWeight: 900,
+        fontSize: 'clamp(1.2rem, 2vw, 1.6rem)',
+        color: goldColor,
+        lineHeight: 1.2,
+      }}>
         {value}
       </div>
       {subtitle && (
-        <span className="text-xs" style={{ color: '#7C8DB0' }}>
+        <span style={{
+          fontFamily: 'var(--ff-mono)',
+          fontSize: '.7rem',
+          color: 'var(--text-muted)',
+          marginTop: '6px',
+          display: 'block',
+        }}>
           {subtitle}
         </span>
       )}

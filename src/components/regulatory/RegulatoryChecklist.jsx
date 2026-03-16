@@ -122,24 +122,31 @@ export default function RegulatoryChecklist() {
   return (
     <div className="space-y-8 animate-fade-in">
       <SectionHeader
+        label="07 — REGULATORY REVIEW"
         title="Regulatory Checklist & Deal Timeline"
         subtitle="Egyptian M&A regulatory requirements — track approvals and monitor critical path milestones"
       />
 
+      {/* Egyptian Regulatory Badge */}
+      <div className="egypt-badge" style={{ marginBottom: '16px' }}>
+        <span className="dot"></span>
+        <span>Calibrated · Egyptian Law · CBE Rates · FRA Requirements</span>
+      </div>
+
       {/* Progress Bar */}
-      <div className="rounded-lg border p-4" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
+      <div className="rounded-lg border p-4" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-semibold" style={{ color: '#C5A44E' }}>
+          <span className="text-xs font-semibold" style={{ color: '#C9A84C' }}>
             Regulatory Progress: {completedItems} / {totalItems} items
           </span>
-          <span className="text-xs font-bold" style={{ fontFamily: "'IBM Plex Mono', monospace", color: progressPct === 100 ? '#4CAF50' : '#F4EDE4' }}>
+          <span className="text-xs font-bold" style={{ fontFamily: "'IBM Plex Mono', monospace", color: progressPct === 100 ? '#4ade80' : '#F0F4FF' }}>
             {Math.round(progressPct)}%
           </span>
         </div>
-        <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#0B0F1A' }}>
+        <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: '#0A0E17' }}>
           <div
             className="h-full rounded-full transition-all duration-500"
-            style={{ width: `${progressPct}%`, backgroundColor: progressPct === 100 ? '#4CAF50' : '#C5A44E' }}
+            style={{ width: `${progressPct}%`, backgroundColor: progressPct === 100 ? '#4ade80' : '#C9A84C' }}
           />
         </div>
       </div>
@@ -147,9 +154,9 @@ export default function RegulatoryChecklist() {
       {/* Checklist */}
       <div className="space-y-4">
         {CHECKLIST_ITEMS.map((cat) => (
-          <div key={cat.category} className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-            <div className="px-4 py-2 border-b" style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
-              <h3 className="text-xs font-semibold" style={{ color: '#C5A44E' }}>{cat.category}</h3>
+          <div key={cat.category} className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+            <div className="px-4 py-2 border-b" style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45' }}>
+              <h3 className="text-xs font-semibold" style={{ color: '#C9A84C' }}>{cat.category}</h3>
             </div>
             <div className="divide-y" style={{ borderColor: 'rgba(44, 62, 107, 0.5)' }}>
               {cat.items.map((item) => (
@@ -161,28 +168,28 @@ export default function RegulatoryChecklist() {
                       className="flex-shrink-0 cursor-pointer"
                     >
                       {reg[item.key]
-                        ? <CheckCircle2 className="w-5 h-5" style={{ color: '#4CAF50' }} />
-                        : <Circle className="w-5 h-5" style={{ color: '#7C8DB0' }} />
+                        ? <CheckCircle2 className="w-5 h-5" style={{ color: '#4ade80' }} />
+                        : <Circle className="w-5 h-5" style={{ color: '#8892A4' }} />
                       }
                     </button>
 
                     {/* Label */}
-                    <span className={`text-sm flex-1 ${reg[item.key] ? 'line-through opacity-60' : ''}`} style={{ color: '#F4EDE4' }}>
+                    <span className={`text-sm flex-1 ${reg[item.key] ? 'line-through opacity-60' : ''}`} style={{ color: '#F0F4FF' }}>
                       {item.label}
                     </span>
 
                     {/* Expand icon */}
                     {expanded[item.key]
-                      ? <ChevronDown className="w-4 h-4" style={{ color: '#7C8DB0' }} />
-                      : <ChevronRight className="w-4 h-4" style={{ color: '#7C8DB0' }} />
+                      ? <ChevronDown className="w-4 h-4" style={{ color: '#8892A4' }} />
+                      : <ChevronRight className="w-4 h-4" style={{ color: '#8892A4' }} />
                     }
                   </div>
 
                   {/* Expanded detail */}
                   {expanded[item.key] && (
                     <div className="px-4 pb-3 pl-12 space-y-1">
-                      <p className="text-xs leading-relaxed" style={{ color: '#7C8DB0' }}>{item.detail}</p>
-                      <p className="text-[10px] italic" style={{ color: '#C5A44E' }}>Source: {item.source}</p>
+                      <p className="text-xs leading-relaxed" style={{ color: '#8892A4' }}>{item.detail}</p>
+                      <p className="text-[10px] italic" style={{ color: '#C9A84C' }}>Source: {item.source}</p>
                     </div>
                   )}
                 </div>
@@ -193,28 +200,28 @@ export default function RegulatoryChecklist() {
       </div>
 
       {/* Deal Timeline Gantt */}
-      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-        <div className="px-4 py-3 border-b flex items-center justify-between" style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
+      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+        <div className="px-4 py-3 border-b flex items-center justify-between" style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45' }}>
           <div className="flex items-center gap-2">
-            <Calendar className="w-4 h-4" style={{ color: '#C5A44E' }} />
-            <h3 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Deal Timeline</h3>
+            <Calendar className="w-4 h-4" style={{ color: '#C9A84C' }} />
+            <h3 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Deal Timeline</h3>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2">
-              <label className="text-xs" style={{ color: '#7C8DB0' }}>Start Date</label>
+              <label className="text-xs" style={{ color: '#8892A4' }}>Start Date</label>
               <input
                 type="date"
                 value={reg.dealStartDate || ''}
                 onChange={(e) => update({ dealStartDate: e.target.value })}
                 className="text-xs px-2 py-1 rounded border focus:outline-none cursor-pointer"
-                style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B', color: '#F4EDE4' }}
+                style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45', color: '#F0F4FF' }}
               />
             </div>
             <select
               value={regulatoryType}
               onChange={(e) => setRegulatoryType(e.target.value)}
               className="text-xs px-2 py-1 rounded border focus:outline-none cursor-pointer"
-              style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B', color: '#F4EDE4' }}
+              style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45', color: '#F0F4FF' }}
             >
               <option value="eca">ECA Only (17 weeks)</option>
               <option value="cbe">CBE + ECA (25 weeks)</option>
@@ -230,28 +237,28 @@ export default function RegulatoryChecklist() {
               const isActive = true; // All shown for now
               return (
                 <div key={i} className="flex items-center gap-3 mb-2">
-                  <div className="text-xs text-right flex-shrink-0" style={{ color: '#F4EDE4', width: '180px' }}>
+                  <div className="text-xs text-right flex-shrink-0" style={{ color: '#F0F4FF', width: '180px' }}>
                     {phase.label}
                   </div>
-                  <div className="flex-1 relative h-6 rounded" style={{ backgroundColor: '#0B0F1A' }}>
+                  <div className="flex-1 relative h-6 rounded" style={{ backgroundColor: '#0A0E17' }}>
                     <div
                       className="absolute h-full rounded transition-all"
                       style={{
                         left: `${barLeft}%`,
                         width: `${barWidth}%`,
-                        backgroundColor: phase.label.includes('Post-Close') ? '#2C3E6B' : '#C5A44E',
+                        backgroundColor: phase.label.includes('Post-Close') ? '#1E2D45' : '#C9A84C',
                         opacity: 0.85,
                       }}
                     />
                     <div className="absolute h-full flex items-center text-[10px] font-bold" style={{
                       left: `${barLeft + barWidth / 2}%`,
                       transform: 'translateX(-50%)',
-                      color: '#0B0F1A',
+                      color: '#0A0E17',
                     }}>
                       Wk {phase.start}–{phase.start + phase.duration}
                     </div>
                   </div>
-                  <div className="text-[10px] flex-shrink-0" style={{ color: '#7C8DB0', width: '80px' }}>
+                  <div className="text-[10px] flex-shrink-0" style={{ color: '#8892A4', width: '80px' }}>
                     {dealStartDate ? getWeekDate(phase.start) : `Week ${phase.start}`}
                   </div>
                 </div>
@@ -262,7 +269,7 @@ export default function RegulatoryChecklist() {
           {/* Week scale */}
           <div className="flex items-center gap-3 mt-2">
             <div style={{ width: '180px' }} />
-            <div className="flex-1 flex justify-between text-[10px]" style={{ color: '#7C8DB0' }}>
+            <div className="flex-1 flex justify-between text-[10px]" style={{ color: '#8892A4' }}>
               {[0, 10, 20, 30, 40, 50, 60, 70].map(w => (
                 <span key={w}>Wk {w}</span>
               ))}

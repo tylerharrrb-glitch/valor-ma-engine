@@ -80,6 +80,7 @@ export default function SourcesUses() {
   return (
     <div className="animate-fade-in space-y-6">
       <SectionHeader
+        label="02 — SOURCES & USES"
         title="Sources & Uses of Funds"
         subtitle="Every transaction requires a balanced funding table. Total Sources must equal Total Uses."
       />
@@ -87,21 +88,21 @@ export default function SourcesUses() {
       {/* Balance Indicator */}
       <div className="flex items-center justify-between p-4 rounded-lg border" style={{
         backgroundColor: calcs.isBalanced ? 'rgba(76, 175, 80, 0.1)' : 'rgba(229, 57, 53, 0.1)',
-        borderColor: calcs.isBalanced ? '#4CAF50' : '#E53935',
+        borderColor: calcs.isBalanced ? '#4ade80' : '#f87171',
       }}>
         <div className="flex items-center gap-3">
           <StatusBadge
             type={calcs.isBalanced ? 'balanced' : 'imbalanced'}
             label={calcs.isBalanced ? 'BALANCED' : `IMBALANCED (Δ EGP ${formatNumber(calcs.balance)}M)`}
           />
-          <span className="text-sm" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>
+          <span className="text-sm" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F0F4FF' }}>
             Sources: {formatCurrency(calcs.totalSources)} | Uses: {formatCurrency(calcs.totalUses)}
           </span>
         </div>
         <button
           onClick={autoFillFees}
           className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded transition-colors cursor-pointer"
-          style={{ backgroundColor: '#C5A44E', color: '#0B0F1A' }}
+          style={{ backgroundColor: '#C9A84C', color: '#0A0E17' }}
         >
           <Calculator className="w-3.5 h-3.5" />
           Calculate Fees
@@ -111,8 +112,8 @@ export default function SourcesUses() {
       {/* S&U Grid */}
       <div className="grid grid-cols-2 gap-6">
         {/* Sources */}
-        <div className="p-4 rounded-lg border" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-          <h3 className="text-sm font-semibold mb-4" style={{ color: '#C5A44E' }}>Sources</h3>
+        <div className="p-4 rounded-lg border" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+          <h3 className="text-sm font-semibold mb-4" style={{ color: '#C9A84C' }}>Sources</h3>
           <div className="space-y-3">
             <InputField label="Revolving Credit Facility" value={su.revolverDraw} onChange={(v) => update('revolverDraw', v)} tooltip="Revolver draw at close" />
             <InputField label="Term Loan A (Senior Secured)" value={su.termLoanA} onChange={(v) => update('termLoanA', v)} tooltip="Amortizing senior secured term loan" />
@@ -124,9 +125,9 @@ export default function SourcesUses() {
             <InputField label="Sponsor Equity" value={su.sponsorEquity} onChange={(v) => update('sponsorEquity', v)} tooltip="PE sponsor equity contribution" />
             <InputField label="Rollover Equity" value={su.rolloverEquity} onChange={(v) => update('rolloverEquity', v)} tooltip="Management / seller equity retained" />
             <InputField label="Cash on Hand" value={su.cashOnHand} onChange={(v) => update('cashOnHand', v)} tooltip="Existing cash used for acquisition" />
-            <div className="pt-2 border-t flex justify-between" style={{ borderColor: '#2C3E6B' }}>
-              <span className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Total Sources</span>
-              <span className="text-sm font-bold" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>
+            <div className="pt-2 border-t flex justify-between" style={{ borderColor: '#1E2D45' }}>
+              <span className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Total Sources</span>
+              <span className="text-sm font-bold" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F0F4FF' }}>
                 {formatCurrency(calcs.totalSources)}
               </span>
             </div>
@@ -134,8 +135,8 @@ export default function SourcesUses() {
         </div>
 
         {/* Uses */}
-        <div className="p-4 rounded-lg border" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-          <h3 className="text-sm font-semibold mb-4" style={{ color: '#C5A44E' }}>Uses</h3>
+        <div className="p-4 rounded-lg border" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+          <h3 className="text-sm font-semibold mb-4" style={{ color: '#C9A84C' }}>Uses</h3>
           <div className="space-y-3">
             <InputField label="Equity Purchase Price" value={equityPurchasePrice} onChange={() => {}} disabled tooltip="Auto-linked from Merger Model" />
             <InputField label="Refinance Target Debt" value={su.refinanceTargetDebt} onChange={(v) => update('refinanceTargetDebt', v)} tooltip="Target's existing debt repaid at close" />
@@ -147,9 +148,9 @@ export default function SourcesUses() {
             <InputField label="ECA Filing Fee" value={su.ecaFilingFee} onChange={(v) => update('ecaFilingFee', v)} />
             <InputField label="Stamp Duty" value={su.stampDuty} onChange={(v) => update('stampDuty', v)} tooltip={`Auto-calc: EGP ${formatNumber(calcs.stampDutyAuto)}M (0.125% × 2 sides)`} />
             <InputField label="Cash to Balance Sheet" value={su.cashToBalanceSheet} onChange={(v) => update('cashToBalanceSheet', v)} tooltip="Minimum working capital / cash buffer post-close" />
-            <div className="pt-2 border-t flex justify-between" style={{ borderColor: '#2C3E6B' }}>
-              <span className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Total Uses</span>
-              <span className="text-sm font-bold" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>
+            <div className="pt-2 border-t flex justify-between" style={{ borderColor: '#1E2D45' }}>
+              <span className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Total Uses</span>
+              <span className="text-sm font-bold" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F0F4FF' }}>
                 {formatCurrency(calcs.totalUses)}
               </span>
             </div>
@@ -175,13 +176,13 @@ export default function SourcesUses() {
 function MetricBox({ label, value, warning = false }) {
   return (
     <div className="p-3 rounded border" style={{
-      backgroundColor: '#1A2340',
-      borderColor: warning ? '#FF9800' : '#2C3E6B',
+      backgroundColor: '#141B2D',
+      borderColor: warning ? '#FF9800' : '#1E2D45',
     }}>
-      <div className="text-xs mb-1" style={{ color: '#7C8DB0' }}>{label}</div>
+      <div className="text-xs mb-1" style={{ color: '#8892A4' }}>{label}</div>
       <div className="text-sm font-bold" style={{
         fontFamily: "'IBM Plex Mono', monospace",
-        color: warning ? '#FF9800' : '#F4EDE4',
+        color: warning ? '#FF9800' : '#F0F4FF',
       }}>
         {value}
         {warning && ' ⚠️'}

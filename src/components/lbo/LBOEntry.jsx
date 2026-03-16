@@ -15,6 +15,7 @@ export default function LBOEntry({ calc }) {
   return (
     <div className="space-y-8 animate-fade-in">
       <SectionHeader
+        label="04 — LBO ANALYSIS"
         title="LBO Model — Leveraged Buyout"
         subtitle="Model a PE acquisition: entry, operating model, debt schedule, exit returns analysis"
       />
@@ -22,10 +23,10 @@ export default function LBOEntry({ calc }) {
       {/* ── ENTRY ASSUMPTIONS + CAPITAL STRUCTURE ── */}
       <div className="grid grid-cols-2 gap-6">
         {/* Entry Assumptions */}
-        <div className="rounded-lg border p-4" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
+        <div className="rounded-lg border p-4" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
           <div className="flex items-center gap-2 mb-4">
-            <Target className="w-4 h-4" style={{ color: '#C5A44E' }} />
-            <h4 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Entry Assumptions</h4>
+            <Target className="w-4 h-4" style={{ color: '#C9A84C' }} />
+            <h4 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Entry Assumptions</h4>
           </div>
           <div className="space-y-3">
             <InputField label="Target Revenue LTM" value={l.targetRevenueLTM} onChange={(v) => update({ targetRevenueLTM: v })} tooltip="Last Twelve Months revenue of the LBO target" />
@@ -36,7 +37,7 @@ export default function LBOEntry({ calc }) {
 
             {/* Auto-calculated entry metrics */}
             {calc && (
-              <div className="mt-3 px-3 py-2 rounded space-y-1.5" style={{ backgroundColor: '#0B0F1A' }}>
+              <div className="mt-3 px-3 py-2 rounded space-y-1.5" style={{ backgroundColor: '#0A0E17' }}>
                 <MetricRow label="Implied Entry EV" value={formatCurrency(calc.impliedEntryEV)} />
                 <MetricRow label="Purchase Price (Equity)" value={formatCurrency(calc.purchasePriceEquityLBO)} />
                 <MetricRow label="Total Capital Required" value={formatCurrency(calc.totalCapitalRequired)} bold />
@@ -46,10 +47,10 @@ export default function LBOEntry({ calc }) {
         </div>
 
         {/* Capital Structure */}
-        <div className="rounded-lg border p-4" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
+        <div className="rounded-lg border p-4" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
           <div className="flex items-center gap-2 mb-4">
-            <Layers className="w-4 h-4" style={{ color: '#C5A44E' }} />
-            <h4 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Debt Tranches</h4>
+            <Layers className="w-4 h-4" style={{ color: '#C9A84C' }} />
+            <h4 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>Debt Tranches</h4>
           </div>
 
           {/* Tranche headers */}
@@ -57,12 +58,12 @@ export default function LBOEntry({ calc }) {
             <table className="w-full text-xs">
               <thead>
                 <tr>
-                  <th className="text-left px-1 py-1 font-semibold" style={{ color: '#7C8DB0', width: '120px' }}>Tranche</th>
-                  <th className="text-center px-1 py-1 font-semibold" style={{ color: '#7C8DB0' }}>× EBITDA</th>
-                  <th className="text-center px-1 py-1 font-semibold" style={{ color: '#7C8DB0' }}>Rate %</th>
-                  <th className="text-center px-1 py-1 font-semibold" style={{ color: '#7C8DB0' }}>Amort %</th>
-                  <th className="text-center px-1 py-1 font-semibold" style={{ color: '#7C8DB0' }}>Mat. Yr</th>
-                  <th className="text-right px-1 py-1 font-semibold" style={{ color: '#7C8DB0' }}>Amount</th>
+                  <th className="text-left px-1 py-1 font-semibold" style={{ color: '#8892A4', width: '120px' }}>Tranche</th>
+                  <th className="text-center px-1 py-1 font-semibold" style={{ color: '#8892A4' }}>× EBITDA</th>
+                  <th className="text-center px-1 py-1 font-semibold" style={{ color: '#8892A4' }}>Rate %</th>
+                  <th className="text-center px-1 py-1 font-semibold" style={{ color: '#8892A4' }}>Amort %</th>
+                  <th className="text-center px-1 py-1 font-semibold" style={{ color: '#8892A4' }}>Mat. Yr</th>
+                  <th className="text-right px-1 py-1 font-semibold" style={{ color: '#8892A4' }}>Amount</th>
                 </tr>
               </thead>
               <tbody>
@@ -122,16 +123,16 @@ export default function LBOEntry({ calc }) {
               checked={l.mezzPIK}
               onChange={(e) => update({ mezzPIK: e.target.checked })}
               className="rounded cursor-pointer"
-              style={{ accentColor: '#C5A44E' }}
+              style={{ accentColor: '#C9A84C' }}
             />
-            <label htmlFor="mezz-pik" className="text-xs cursor-pointer" style={{ color: '#7C8DB0' }}>
+            <label htmlFor="mezz-pik" className="text-xs cursor-pointer" style={{ color: '#8892A4' }}>
               Mezzanine PIK (interest compounds onto principal)
             </label>
           </div>
 
           {/* Summary metrics */}
           {calc && (
-            <div className="mt-4 px-3 py-2 rounded space-y-1.5" style={{ backgroundColor: '#0B0F1A' }}>
+            <div className="mt-4 px-3 py-2 rounded space-y-1.5" style={{ backgroundColor: '#0A0E17' }}>
               <MetricRow label="Total Debt at Entry" value={formatCurrency(calc.totalDebtAtEntry)} />
               <MetricRow label="Sponsor Equity (Residual)" value={formatCurrency(calc.sponsorEquityLBO)} bold highlight />
               <MetricRow label="Debt / EBITDA at Entry" value={`${formatNumber(calc.debtToEBITDAEntry, 1)}x`} warn={calc.debtToEBITDAEntry > 5.0} />
@@ -165,39 +166,39 @@ function TrancheRow({
 }) {
   const cellStyle = {
     fontFamily: "'IBM Plex Mono', monospace",
-    color: '#F4EDE4',
-    backgroundColor: '#0B0F1A',
-    borderColor: '#2C3E6B',
+    color: '#F0F4FF',
+    backgroundColor: '#0A0E17',
+    borderColor: '#1E2D45',
   };
 
   return (
     <tr className="border-b last:border-0" style={{ borderColor: 'rgba(44, 62, 107, 0.5)' }}>
-      <td className="px-1 py-2 font-medium" style={{ color: '#F4EDE4' }}>{label}</td>
+      <td className="px-1 py-2 font-medium" style={{ color: '#F0F4FF' }}>{label}</td>
       <td className="px-1 py-1">
         <input type="number" step={0.1} value={multiple || ''} onChange={(e) => onMultiple(parseFloat(e.target.value) || 0)}
-          className="w-full text-center text-xs px-1 py-1 rounded border focus:outline-none focus:border-[#C5A44E] bg-transparent transition-colors"
+          className="w-full text-center text-xs px-1 py-1 rounded border focus:outline-none focus:border-[#C9A84C] bg-transparent transition-colors"
           style={cellStyle} placeholder="0" />
       </td>
       <td className="px-1 py-1">
         <input type="number" step={0.5} value={rate || ''} onChange={(e) => onRate(parseFloat(e.target.value) || 0)}
-          className="w-full text-center text-xs px-1 py-1 rounded border focus:outline-none focus:border-[#C5A44E] bg-transparent transition-colors"
+          className="w-full text-center text-xs px-1 py-1 rounded border focus:outline-none focus:border-[#C9A84C] bg-transparent transition-colors"
           style={cellStyle} placeholder="0" />
       </td>
       <td className="px-1 py-1">
         {hideAmort ? (
-          <span className="block text-center text-xs" style={{ color: '#7C8DB0' }}>—</span>
+          <span className="block text-center text-xs" style={{ color: '#8892A4' }}>—</span>
         ) : (
           <input type="number" step={1} value={amort || ''} onChange={(e) => onAmort(parseFloat(e.target.value) || 0)}
-            className="w-full text-center text-xs px-1 py-1 rounded border focus:outline-none focus:border-[#C5A44E] bg-transparent transition-colors"
+            className="w-full text-center text-xs px-1 py-1 rounded border focus:outline-none focus:border-[#C9A84C] bg-transparent transition-colors"
             style={cellStyle} placeholder="0" />
         )}
       </td>
       <td className="px-1 py-1">
         <input type="number" step={1} min={1} max={10} value={maturity || ''} onChange={(e) => onMaturity(parseInt(e.target.value) || 1)}
-          className="w-full text-center text-xs px-1 py-1 rounded border focus:outline-none focus:border-[#C5A44E] bg-transparent transition-colors"
+          className="w-full text-center text-xs px-1 py-1 rounded border focus:outline-none focus:border-[#C9A84C] bg-transparent transition-colors"
           style={cellStyle} placeholder="5" />
       </td>
-      <td className="px-1 py-2 text-right text-xs font-medium" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#C5A44E' }}>
+      <td className="px-1 py-2 text-right text-xs font-medium" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#C9A84C' }}>
         {amount ? `${formatNumber(amount, 1)}M` : '—'}
       </td>
     </tr>
@@ -207,10 +208,10 @@ function TrancheRow({
 function MetricRow({ label, value, bold = false, highlight = false, warn = false }) {
   return (
     <div className="flex justify-between text-xs">
-      <span style={{ color: '#7C8DB0' }}>{label}</span>
+      <span style={{ color: '#8892A4' }}>{label}</span>
       <span className={bold ? 'font-bold' : 'font-medium'} style={{
         fontFamily: "'IBM Plex Mono', monospace",
-        color: warn ? '#FF9800' : highlight ? '#4CAF50' : bold ? '#C5A44E' : '#F4EDE4',
+        color: warn ? '#FF9800' : highlight ? '#4ade80' : bold ? '#C9A84C' : '#F0F4FF',
       }}>
         {value}{warn ? ' ⚠️' : ''}
       </span>

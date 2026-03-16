@@ -25,9 +25,9 @@ export default function SynergyOutputs() {
 
   if (!hasData) {
     return (
-      <div className="flex flex-col items-center justify-center py-16 rounded-lg border" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-        <TrendingUp className="w-8 h-8 mb-3" style={{ color: '#7C8DB0' }} />
-        <p className="text-sm" style={{ color: '#7C8DB0' }}>Enter synergy inputs above to generate analysis</p>
+      <div className="flex flex-col items-center justify-center py-16 rounded-lg border" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+        <TrendingUp className="w-8 h-8 mb-3" style={{ color: '#8892A4' }} />
+        <p className="text-sm" style={{ color: '#8892A4' }}>Enter synergy inputs above to generate analysis</p>
       </div>
     );
   }
@@ -41,10 +41,10 @@ export default function SynergyOutputs() {
   }));
 
   const adequacyConfig = {
-    strong: { icon: CheckCircle2, label: 'Synergies more than justify goodwill', color: '#4CAF50' },
+    strong: { icon: CheckCircle2, label: 'Synergies more than justify goodwill', color: '#4ade80' },
     moderate: { icon: AlertTriangle, label: 'Synergies partially justify goodwill', color: '#FF9800' },
-    weak: { icon: XCircle, label: 'Goodwill at significant impairment risk', color: '#E53935' },
-    none: { icon: AlertTriangle, label: 'No goodwill data (enter merger model inputs)', color: '#7C8DB0' },
+    weak: { icon: XCircle, label: 'Goodwill at significant impairment risk', color: '#f87171' },
+    none: { icon: AlertTriangle, label: 'No goodwill data (enter merger model inputs)', color: '#8892A4' },
   };
 
   const adequacy = adequacyConfig[calc.synergyAdequacy];
@@ -57,10 +57,10 @@ export default function SynergyOutputs() {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr style={{ backgroundColor: '#0B0F1A' }}>
-                <th className="text-left px-4 py-2 text-xs font-semibold" style={{ color: '#C5A44E' }}>Metric</th>
+              <tr style={{ backgroundColor: '#0A0E17' }}>
+                <th className="text-left px-4 py-2 text-xs font-semibold" style={{ color: '#C9A84C' }}>Metric</th>
                 {YEARS.map((y) => (
-                  <th key={y} className="text-right px-4 py-2 text-xs font-semibold" style={{ color: '#C5A44E' }}>Year {y}</th>
+                  <th key={y} className="text-right px-4 py-2 text-xs font-semibold" style={{ color: '#C9A84C' }}>Year {y}</th>
                 ))}
               </tr>
             </thead>
@@ -143,26 +143,26 @@ export default function SynergyOutputs() {
         <div style={{ height: 320 }}>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData} barGap={2}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#2C3E6B" />
-              <XAxis dataKey="name" tick={{ fill: '#7C8DB0', fontSize: 12 }} />
-              <YAxis tick={{ fill: '#7C8DB0', fontSize: 12, fontFamily: "'IBM Plex Mono', monospace" }} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#1E2D45" />
+              <XAxis dataKey="name" tick={{ fill: '#8892A4', fontSize: 12 }} />
+              <YAxis tick={{ fill: '#8892A4', fontSize: 12, fontFamily: "'IBM Plex Mono', monospace" }} />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: '#1A2340',
-                  borderColor: '#2C3E6B',
+                  backgroundColor: '#141B2D',
+                  borderColor: '#1E2D45',
                   borderRadius: '8px',
-                  color: '#F4EDE4',
+                  color: '#F0F4FF',
                   fontFamily: "'IBM Plex Mono', monospace",
                   fontSize: '12px',
                 }}
                 formatter={(value) => [`${value.toFixed(1)}M`, undefined]}
               />
               <Legend
-                wrapperStyle={{ fontSize: '12px', color: '#7C8DB0' }}
+                wrapperStyle={{ fontSize: '12px', color: '#8892A4' }}
               />
-              <Bar dataKey="Revenue Synergies" stackId="gross" fill="#C5A44E" radius={[0, 0, 0, 0]} />
-              <Bar dataKey="Cost Synergies" stackId="gross" fill="#4CAF50" radius={[4, 4, 0, 0]} />
-              <Bar dataKey="Net Synergies" fill="rgba(197, 164, 78, 0.3)" stroke="#C5A44E" strokeWidth={1} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Revenue Synergies" stackId="gross" fill="#C9A84C" radius={[0, 0, 0, 0]} />
+              <Bar dataKey="Cost Synergies" stackId="gross" fill="#4ade80" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="Net Synergies" fill="rgba(197, 164, 78, 0.3)" stroke="#C9A84C" strokeWidth={1} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -175,9 +175,9 @@ export default function SynergyOutputs() {
 
 function OutputPanel({ title, children }) {
   return (
-    <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-      <div className="px-4 py-2 border-b" style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
-        <h3 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>{title}</h3>
+    <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+      <div className="px-4 py-2 border-b" style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45' }}>
+        <h3 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>{title}</h3>
       </div>
       <div className="p-4 space-y-2">
         {children}
@@ -191,7 +191,7 @@ function OutputRow({ label, value, bold = false, highlight = false, sub = false 
     <div className="flex items-center justify-between py-1 border-b last:border-0" style={{ borderColor: 'rgba(44, 62, 107, 0.5)' }}>
       <span
         className={`text-xs ${bold ? 'font-semibold' : ''}`}
-        style={{ color: sub ? '#5a6d94' : '#7C8DB0', paddingLeft: sub ? '8px' : '0' }}
+        style={{ color: sub ? '#5a6d94' : '#8892A4', paddingLeft: sub ? '8px' : '0' }}
       >
         {label}
       </span>
@@ -199,7 +199,7 @@ function OutputRow({ label, value, bold = false, highlight = false, sub = false 
         className={`text-sm ${bold ? 'font-bold' : 'font-medium'}`}
         style={{
           fontFamily: "'IBM Plex Mono', monospace",
-          color: highlight ? '#4CAF50' : bold ? '#C5A44E' : '#F4EDE4',
+          color: highlight ? '#4ade80' : bold ? '#C9A84C' : '#F0F4FF',
         }}
       >
         {value}
@@ -210,10 +210,10 @@ function OutputRow({ label, value, bold = false, highlight = false, sub = false 
 
 function SummaryRow({ label, values, formatNumber, bold = false, alt = false, highlight = false, negative = false }) {
   return (
-    <tr style={{ backgroundColor: alt ? '#1e2a4a' : '#1A2340' }}>
+    <tr style={{ backgroundColor: alt ? '#182236' : '#141B2D' }}>
       <td
         className={`px-4 py-2 text-xs ${bold ? 'font-bold' : 'font-medium'}`}
-        style={{ color: bold ? '#C5A44E' : '#F4EDE4' }}
+        style={{ color: bold ? '#C9A84C' : '#F0F4FF' }}
       >
         {label}
       </td>
@@ -223,7 +223,7 @@ function SummaryRow({ label, values, formatNumber, bold = false, alt = false, hi
           className={`px-4 py-2 text-right text-xs ${bold ? 'font-bold' : ''}`}
           style={{
             fontFamily: "'IBM Plex Mono', monospace",
-            color: highlight ? '#4CAF50' : negative ? '#E53935' : bold ? '#C5A44E' : '#F4EDE4',
+            color: highlight ? '#4ade80' : negative ? '#f87171' : bold ? '#C9A84C' : '#F0F4FF',
           }}
         >
           {negative ? `(${formatNumber(v, 1)})` : formatNumber(v, 1)}

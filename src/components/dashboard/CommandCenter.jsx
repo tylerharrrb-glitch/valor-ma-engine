@@ -20,7 +20,6 @@ const quickActions = [
 export default function CommandCenter() {
   const { state, dispatch, formatCurrency, formatNumber } = useDeal();
 
-  // Compute Merger Model values for KPI cards
   const mergerMetrics = useMemo(() => {
     const a = state.acquirer;
     const t = state.target;
@@ -33,7 +32,6 @@ export default function CommandCenter() {
     const purchasePrice = d.offerPricePerShare * t.sharesOutstanding;
     const premium = t.sharePrice > 0 ? (d.offerPricePerShare / t.sharePrice - 1) * 100 : 0;
 
-    // Quick EPS calculation for dashboard
     const stockComponent = purchasePrice * (d.stockPercent / 100);
     const newShares = a.sharePrice > 0 ? stockComponent / a.sharePrice : 0;
     const proFormaShares = a.sharesOutstanding + newShares;
@@ -69,21 +67,8 @@ export default function CommandCenter() {
 
   return (
     <div className="animate-fade-in">
-      {/* Hero */}
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-1" style={{ fontFamily: "'Playfair Display', serif", color: '#C5A44E' }}>
-          Command Center
-        </h1>
-        <p className="text-sm" style={{ color: '#7C8DB0' }}>
-          {state.acquirerName && state.targetName
-            ? `${state.acquirerName} × ${state.targetName}`
-            : 'Configure your transaction parameters to begin analysis.'
-          }
-        </p>
-      </div>
-
       {/* KPI Cards */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '40px' }}>
         <MetricCard
           title="Deal Value"
           value={mergerMetrics.dealValue > 0 ? formatCurrency(mergerMetrics.dealValue) : '—'}
@@ -93,7 +78,7 @@ export default function CommandCenter() {
           title="Premium Paid"
           value={mergerMetrics.premium !== 0 ? `${formatNumber(mergerMetrics.premium, 1)}%` : '—'}
           icon={Percent}
-          accentColor={mergerMetrics.premium > 40 ? '#FF9800' : '#C5A44E'}
+          accentColor={mergerMetrics.premium > 40 ? '#FF9800' : undefined}
         />
         <MetricCard
           title="EPS Impact — Year 1"
@@ -104,7 +89,7 @@ export default function CommandCenter() {
             ? (mergerMetrics.isAccretive ? 'Accretive ✅' : 'Dilutive ❌')
             : null}
           icon={mergerMetrics.isAccretive ? TrendingUp : TrendingDown}
-          accentColor={mergerMetrics.isAccretive ? '#4CAF50' : '#E53935'}
+          accentColor={mergerMetrics.isAccretive ? '#4ade80' : '#f87171'}
         />
         <MetricCard title="LBO IRR" value="—" subtitle="Configure LBO model" icon={BarChart3} />
         <MetricCard title="MOIC" value="—" subtitle="Configure LBO model" icon={TrendingUp} />
@@ -112,23 +97,42 @@ export default function CommandCenter() {
       </div>
 
       {/* Quick Actions */}
-      <SectionHeader title="Modules" subtitle="Select a module to begin configuration" />
-      <div className="grid grid-cols-3 gap-3">
+      <SectionHeader label="MODULES" title="Analysis Modules" subtitle="Select a module to begin configuration" />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
         {quickActions.map((action) => {
           const Icon = action.icon;
           return (
             <button
               key={action.id}
               onClick={() => dispatch({ type: 'SET_ACTIVE_MODULE', payload: action.id })}
-              className="flex items-center gap-3 p-4 rounded-lg border text-left transition-all cursor-pointer hover:border-[#C5A44E] group"
-              style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}
+              className="card"
+              style={{
+                display: 'flex', alignItems: 'center', gap: '12px',
+                padding: '20px',
+                textAlign: 'left',
+                cursor: 'pointer',
+              }}
             >
-              <div className="p-2 rounded" style={{ backgroundColor: 'rgba(197, 164, 78, 0.1)' }}>
-                <Icon className="w-5 h-5 group-hover:scale-110 transition-transform" style={{ color: '#C5A44E' }} />
+              <div style={{
+                padding: '10px',
+                borderRadius: '8px',
+                background: 'rgba(201,168,76,.08)',
+              }}>
+                <Icon style={{ width: 20, height: 20, color: 'var(--accent-gold)' }} />
               </div>
               <div>
-                <div className="text-sm font-semibold" style={{ color: '#F4EDE4' }}>{action.label}</div>
-                <div className="text-xs" style={{ color: '#7C8DB0' }}>{action.desc}</div>
+                <div style={{
+                  fontFamily: 'var(--ff-body)',
+                  fontSize: '.85rem',
+                  fontWeight: 600,
+                  color: 'var(--text-primary)',
+                }}>{action.label}</div>
+                <div style={{
+                  fontFamily: 'var(--ff-mono)',
+                  fontSize: '.72rem',
+                  color: 'var(--text-muted)',
+                  marginTop: '2px',
+                }}>{action.desc}</div>
               </div>
             </button>
           );

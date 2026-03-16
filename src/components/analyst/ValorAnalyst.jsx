@@ -88,37 +88,37 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
       right: 0,
       width: '420px',
       height: '100vh',
-      backgroundColor: '#0B0F1A',
-      borderLeft: '1px solid #1A2340',
+      backgroundColor: '#0A0E17',
+      borderLeft: '1px solid #141B2D',
       display: 'flex',
       flexDirection: 'column',
-      zIndex: 100,
+      zIndex: 1050,
       boxShadow: '-4px 0 24px rgba(0,0,0,0.5)',
     }}>
 
       {/* ── HEADER ── */}
       <div style={{
         padding: '16px 20px',
-        borderBottom: '1px solid #1A2340',
+        borderBottom: '1px solid #141B2D',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        backgroundColor: '#0B0F1A',
+        backgroundColor: '#0A0E17',
         flexShrink: 0,
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <div style={{
             width: '32px', height: '32px',
-            backgroundColor: '#1A2340',
-            border: '1px solid #C5A44E',
+            backgroundColor: '#141B2D',
+            border: '1px solid #C9A84C',
             borderRadius: '6px',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: '#C5A44E', fontSize: '14px', fontWeight: 700,
+            color: '#C9A84C', fontSize: '14px', fontWeight: 700,
           }}>V</div>
           <div>
             <div style={{
               fontFamily: "'Playfair Display', serif",
-              fontWeight: 700, fontSize: '15px', color: '#C5A44E',
+              fontWeight: 700, fontSize: '15px', color: '#C9A84C',
               letterSpacing: '0.08em',
             }}>VALOR ANALYST</div>
             <div style={{ fontSize: '10px', color: '#6b7280', letterSpacing: '0.1em' }}>
@@ -131,7 +131,7 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
             <button
               onClick={clearChat}
               style={{
-                background: 'none', border: '1px solid #1A2340',
+                background: 'none', border: '1px solid #141B2D',
                 color: '#6b7280', borderRadius: '4px',
                 padding: '4px 8px', fontSize: '11px', cursor: 'pointer',
               }}
@@ -151,7 +151,7 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
       {/* ── QUICK ACTIONS ── */}
       <div style={{
         padding: '12px 16px',
-        borderBottom: '1px solid #1A2340',
+        borderBottom: '1px solid #141B2D',
         flexShrink: 0,
       }}>
         {/* Primary verify button */}
@@ -161,8 +161,8 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
           style={{
             width: '100%',
             padding: '10px 16px',
-            backgroundColor: loading ? '#1A2340' : '#C5A44E',
-            color: loading ? '#6b7280' : '#0B0F1A',
+            backgroundColor: loading ? '#141B2D' : '#C9A84C',
+            color: loading ? '#6b7280' : '#0A0E17',
             border: 'none',
             borderRadius: '6px',
             fontWeight: 700,
@@ -188,8 +188,8 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
               disabled={loading}
               style={{
                 padding: '7px 10px',
-                backgroundColor: '#1A2340',
-                color: loading ? '#4b5563' : '#F4EDE4',
+                backgroundColor: '#141B2D',
+                color: loading ? '#4b5563' : '#F0F4FF',
                 border: '1px solid #2a3350',
                 borderRadius: '5px',
                 fontSize: '10px',
@@ -199,7 +199,7 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
                 letterSpacing: '0.02em',
                 transition: 'border-color 0.15s',
               }}
-              onMouseEnter={e => { if (!loading) e.target.style.borderColor = '#C5A44E'; }}
+              onMouseEnter={e => { if (!loading) e.target.style.borderColor = '#C9A84C'; }}
               onMouseLeave={e => { e.target.style.borderColor = '#2a3350'; }}
             >
               {action.label}
@@ -225,14 +225,14 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
           }}>
             <div style={{
               width: '48px', height: '48px',
-              border: '1px solid #1A2340',
+              border: '1px solid #141B2D',
               borderRadius: '50%',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: '#C5A44E', fontSize: '20px',
+              color: '#C9A84C', fontSize: '20px',
               marginBottom: '12px',
             }}>V</div>
             <div style={{
-              color: '#C5A44E', fontSize: '13px',
+              color: '#C9A84C', fontSize: '13px',
               fontFamily: "'Playfair Display', serif",
               fontWeight: 600, marginBottom: '8px',
             }}>Intelligence Ready</div>
@@ -251,9 +251,9 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
               maxWidth: '90%',
               padding: '10px 14px',
               borderRadius: msg.role === 'user' ? '12px 12px 2px 12px' : '12px 12px 12px 2px',
-              backgroundColor: msg.role === 'user' ? '#1A2340' : '#111827',
-              border: msg.role === 'user' ? '1px solid #2a3350' : '1px solid #1A2340',
-              color: '#F4EDE4',
+              backgroundColor: msg.role === 'user' ? '#141B2D' : '#111827',
+              border: msg.role === 'user' ? '1px solid #2a3350' : '1px solid #141B2D',
+              color: '#F0F4FF',
               fontSize: '12px',
               lineHeight: '1.65',
               whiteSpace: 'pre-wrap',
@@ -262,7 +262,7 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
             }}>
               {msg.role === 'assistant' && (
                 <div style={{
-                  fontSize: '9px', color: '#C5A44E',
+                  fontSize: '9px', color: '#C9A84C',
                   letterSpacing: '0.15em', fontWeight: 700,
                   marginBottom: '6px', fontFamily: 'Inter, sans-serif',
                 }}>VALOR ANALYST</div>
@@ -277,9 +277,9 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
             <div style={{
               padding: '10px 16px',
               backgroundColor: '#111827',
-              border: '1px solid #1A2340',
+              border: '1px solid #141B2D',
               borderRadius: '12px 12px 12px 2px',
-              color: '#C5A44E',
+              color: '#C9A84C',
               fontSize: '11px',
               letterSpacing: '0.1em',
             }}>
@@ -294,9 +294,9 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
       {/* ── INPUT ── */}
       <div style={{
         padding: '12px 16px',
-        borderTop: '1px solid #1A2340',
+        borderTop: '1px solid #141B2D',
         flexShrink: 0,
-        backgroundColor: '#0B0F1A',
+        backgroundColor: '#0A0E17',
       }}>
         <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '8px' }}>
           <input
@@ -307,15 +307,15 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
             style={{
               flex: 1,
               padding: '9px 12px',
-              backgroundColor: '#1A2340',
+              backgroundColor: '#141B2D',
               border: '1px solid #2a3350',
               borderRadius: '6px',
-              color: '#F4EDE4',
+              color: '#F0F4FF',
               fontSize: '12px',
               outline: 'none',
               fontFamily: 'Inter, sans-serif',
             }}
-            onFocus={e => { e.target.style.borderColor = '#C5A44E'; }}
+            onFocus={e => { e.target.style.borderColor = '#C9A84C'; }}
             onBlur={e => { e.target.style.borderColor = '#2a3350'; }}
           />
           <button
@@ -323,8 +323,8 @@ export default function ValorAnalyst({ dealData, isOpen, onClose }) {
             disabled={!input.trim() || loading}
             style={{
               padding: '9px 14px',
-              backgroundColor: input.trim() && !loading ? '#C5A44E' : '#1A2340',
-              color: input.trim() && !loading ? '#0B0F1A' : '#4b5563',
+              backgroundColor: input.trim() && !loading ? '#C9A84C' : '#141B2D',
+              color: input.trim() && !loading ? '#0A0E17' : '#4b5563',
               border: 'none',
               borderRadius: '6px',
               fontWeight: 700,

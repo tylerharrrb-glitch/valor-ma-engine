@@ -457,6 +457,7 @@ export default function DispatchPDF() {
   return (
     <div className="space-y-8 animate-fade-in">
       <SectionHeader
+        label="08 — DISPATCH"
         title="Dispatch — Deal Memorandum"
         subtitle="Generate a comprehensive PDF export of all deal analysis modules"
       />
@@ -469,12 +470,12 @@ export default function DispatchPDF() {
       </div>
 
       {/* Generate Button */}
-      <div className="flex flex-col items-center justify-center py-10 rounded-lg border" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-        <FileText className="w-10 h-10 mb-4" style={{ color: '#C5A44E' }} />
-        <h3 className="text-lg font-bold mb-1" style={{ fontFamily: "'Playfair Display', serif", color: '#F4EDE4' }}>
+      <div className="flex flex-col items-center justify-center py-10 rounded-lg border" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+        <FileText className="w-10 h-10 mb-4" style={{ color: '#C9A84C' }} />
+        <h3 className="text-lg font-bold mb-1" style={{ fontFamily: "'Playfair Display', serif", color: '#F0F4FF' }}>
           Deal Memorandum
         </h3>
-        <p className="text-xs mb-6" style={{ color: '#7C8DB0' }}>
+        <p className="text-xs mb-6" style={{ color: '#8892A4' }}>
           {state.campaignName || 'New Campaign'} — {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}
         </p>
 
@@ -483,8 +484,8 @@ export default function DispatchPDF() {
           disabled={status === 'generating'}
           className="flex items-center gap-2 px-6 py-2.5 rounded-lg text-sm font-bold transition-all cursor-pointer"
           style={{
-            backgroundColor: status === 'done' ? '#4CAF50' : '#C5A44E',
-            color: '#0B0F1A',
+            backgroundColor: status === 'done' ? '#4ade80' : '#C9A84C',
+            color: '#0A0E17',
             opacity: status === 'generating' ? 0.7 : 1,
           }}
         >
@@ -493,15 +494,15 @@ export default function DispatchPDF() {
           {status === 'done' && <><CheckCircle2 className="w-4 h-4" />Downloaded Successfully</>}
         </button>
 
-        <p className="text-[10px] mt-3" style={{ color: '#7C8DB0' }}>
+        <p className="text-[10px] mt-3" style={{ color: '#8892A4' }}>
           7-page A4 document • Dark theme • All module data included
         </p>
       </div>
 
       {/* Document Structure */}
-      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-        <div className="px-4 py-2 border-b" style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
-          <h3 className="text-xs font-semibold" style={{ color: '#C5A44E' }}>Document Structure</h3>
+      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+        <div className="px-4 py-2 border-b" style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45' }}>
+          <h3 className="text-xs font-semibold" style={{ color: '#C9A84C' }}>Document Structure</h3>
         </div>
         <div className="p-4 grid grid-cols-2 gap-3">
           {[
@@ -513,11 +514,11 @@ export default function DispatchPDF() {
             { page: 6, title: 'Regulatory & Parameters', desc: 'Checklist status, Egypt regulatory constants' },
             { page: 7, title: 'Disclaimer', desc: 'FRA disclosure, legal caveats, footer' },
           ].map((p) => (
-            <div key={p.page} className="flex items-start gap-3 px-3 py-2 rounded" style={{ backgroundColor: '#0B0F1A' }}>
-              <div className="text-xs font-bold flex-shrink-0 w-6 h-6 flex items-center justify-center rounded" style={{ backgroundColor: '#2C3E6B', color: '#C5A44E' }}>{p.page}</div>
+            <div key={p.page} className="flex items-start gap-3 px-3 py-2 rounded" style={{ backgroundColor: '#0A0E17' }}>
+              <div className="text-xs font-bold flex-shrink-0 w-6 h-6 flex items-center justify-center rounded" style={{ backgroundColor: '#1E2D45', color: '#C9A84C' }}>{p.page}</div>
               <div>
-                <p className="text-xs font-medium" style={{ color: '#F4EDE4' }}>{p.title}</p>
-                <p className="text-[10px]" style={{ color: '#7C8DB0' }}>{p.desc}</p>
+                <p className="text-xs font-medium" style={{ color: '#F0F4FF' }}>{p.title}</p>
+                <p className="text-[10px]" style={{ color: '#8892A4' }}>{p.desc}</p>
               </div>
             </div>
           ))}
@@ -529,12 +530,12 @@ export default function DispatchPDF() {
 
 function PreviewCard({ title, items }) {
   return (
-    <div className="p-4 rounded-lg border" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-      <h4 className="text-xs font-semibold mb-2" style={{ color: '#C5A44E' }}>{title}</h4>
+    <div className="p-4 rounded-lg border" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+      <h4 className="text-xs font-semibold mb-2" style={{ color: '#C9A84C' }}>{title}</h4>
       <ul className="space-y-1">
         {items.map((item, i) => (
-          <li key={i} className="text-[11px] flex items-center gap-1.5" style={{ color: '#7C8DB0' }}>
-            <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: '#C5A44E' }} />
+          <li key={i} className="text-[11px] flex items-center gap-1.5" style={{ color: '#8892A4' }}>
+            <span className="w-1 h-1 rounded-full flex-shrink-0" style={{ backgroundColor: '#C9A84C' }} />
             {item}
           </li>
         ))}

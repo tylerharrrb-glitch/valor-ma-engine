@@ -5,7 +5,6 @@ export default function ScenarioMatrix({ data, currentPremium, currentSynergy })
 
   const { premiums, synergies, matrix } = data;
 
-  // Find the cell closest to current scenario
   const closestPremiumIdx = useMemo(() => {
     let minDist = Infinity;
     let idx = 0;
@@ -27,53 +26,59 @@ export default function ScenarioMatrix({ data, currentPremium, currentSynergy })
   }, [synergies, currentSynergy]);
 
   const getCellColor = (val) => {
-    if (val > 5) return '#2E7D32';      // Dark green
-    if (val >= 0) return '#4CAF50';      // Light green
-    if (val >= -5) return '#FF9800';     // Amber
-    return '#E53935';                     // Red
+    if (val > 5) return '#22c55e';
+    if (val >= 0) return '#4ade80';
+    if (val >= -5) return '#FF9800';
+    return '#f87171';
   };
 
   return (
-    <div className="rounded-lg border p-4" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-      <h3 className="text-sm font-semibold mb-1" style={{ color: '#C5A44E' }}>
-        Scenario Matrix — Year 1 Accretion / Dilution (%)
+    <div className="card" style={{ padding: '24px' }}>
+      <span className="section-label" style={{ marginBottom: '8px' }}>SCENARIO ANALYSIS</span>
+      <h3 style={{
+        fontFamily: 'var(--ff-body)',
+        fontSize: '.85rem',
+        color: 'var(--text-primary)',
+        marginBottom: '4px',
+      }}>
+        Year 1 Accretion / Dilution (%)
       </h3>
-      <p className="text-xs mb-4" style={{ color: '#7C8DB0' }}>
+      <p style={{
+        fontFamily: 'var(--ff-mono)',
+        fontSize: '.72rem',
+        color: 'var(--text-muted)',
+        marginBottom: '16px',
+      }}>
         Rows: Offer Premium (%) | Columns: After-Tax Synergies (EGP M)
       </p>
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-xs" style={{ fontFamily: "'IBM Plex Mono', monospace" }}>
+      <div style={{ overflowX: 'auto' }}>
+        <table className="fin-table" style={{ fontSize: '.72rem' }}>
           <thead>
             <tr>
-              <th className="px-2 py-2 text-left font-semibold" style={{ color: '#C5A44E', backgroundColor: '#0B0F1A' }}>
-                Premium ↓ / Syn →
-              </th>
+              <th style={{ textAlign: 'left' }}>Premium ↓ / Syn →</th>
               {synergies.map((s, j) => (
-                <th key={j} className="px-2 py-2 text-center font-semibold" style={{ color: '#C5A44E', backgroundColor: '#0B0F1A' }}>
-                  {s}
-                </th>
+                <th key={j} style={{ textAlign: 'center' }}>{s}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {premiums.map((p, i) => (
               <tr key={i}>
-                <td className="px-2 py-2 font-semibold" style={{ color: '#F4EDE4', backgroundColor: '#0B0F1A' }}>
-                  {p}%
-                </td>
+                <td style={{ fontFamily: 'var(--ff-mono)', fontWeight: 600 }}>{p}%</td>
                 {synergies.map((s, j) => {
                   const val = matrix[i][j];
                   const isCurrent = i === closestPremiumIdx && j === closestSynergyIdx;
                   return (
                     <td
                       key={j}
-                      className="px-2 py-2 text-center font-medium"
                       style={{
+                        textAlign: 'center',
+                        fontWeight: 500,
                         backgroundColor: getCellColor(val),
                         color: '#FFFFFF',
-                        border: isCurrent ? '2px solid #C5A44E' : '1px solid rgba(44, 62, 107, 0.3)',
-                        boxShadow: isCurrent ? '0 0 8px rgba(197, 164, 78, 0.5)' : 'none',
+                        border: isCurrent ? '2px solid var(--accent-gold)' : '1px solid rgba(30,45,69,.3)',
+                        boxShadow: isCurrent ? '0 0 8px rgba(201,168,76,.5)' : 'none',
                       }}
                     >
                       {val >= 0 ? '+' : ''}{val.toFixed(1)}%

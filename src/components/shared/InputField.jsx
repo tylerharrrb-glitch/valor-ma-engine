@@ -32,35 +32,43 @@ export default function InputField({
   const isNegative = typeof value === 'number' && value < 0;
 
   return (
-    <div className="flex flex-col gap-1">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
       {/* Label */}
-      <div className="flex items-center gap-1.5">
+      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
         <label
           htmlFor={id}
-          className="text-xs font-medium"
-          style={{ color: '#7C8DB0' }}
+          className="valor-label"
         >
           {label}
-          {required && <span style={{ color: '#C5A44E' }}> *</span>}
+          {required && <span style={{ color: 'var(--accent-gold)' }}> *</span>}
         </label>
         {tooltip && (
-          <div className="relative">
+          <div style={{ position: 'relative' }}>
             <button
               type="button"
-              className="cursor-pointer"
+              style={{ cursor: 'pointer', background: 'none', border: 'none', padding: 0 }}
               onMouseEnter={() => setShowTooltip(true)}
               onMouseLeave={() => setShowTooltip(false)}
             >
-              <HelpCircle className="w-3 h-3" style={{ color: '#7C8DB0' }} />
+              <HelpCircle style={{ width: 12, height: 12, color: 'var(--text-muted)' }} />
             </button>
             {showTooltip && (
               <div
                 ref={tooltipRef}
-                className="absolute z-50 left-5 -top-2 w-56 px-3 py-2 text-xs rounded shadow-lg border"
                 style={{
-                  backgroundColor: '#1A2340',
-                  borderColor: '#2C3E6B',
-                  color: '#F4EDE4',
+                  position: 'absolute',
+                  zIndex: 50,
+                  left: '20px',
+                  top: '-8px',
+                  width: '220px',
+                  padding: '8px 12px',
+                  fontSize: '.72rem',
+                  fontFamily: 'var(--ff-mono)',
+                  borderRadius: '4px',
+                  background: 'var(--bg-card)',
+                  border: '1px solid var(--border)',
+                  color: 'var(--text-primary)',
+                  boxShadow: '0 8px 24px rgba(0,0,0,.4)',
                 }}
               >
                 {tooltip}
@@ -71,8 +79,14 @@ export default function InputField({
       </div>
 
       {/* Input */}
-      <div className="flex items-center rounded border transition-colors focus-within:border-[#C5A44E]"
-           style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        borderRadius: '4px',
+        border: '1px solid var(--border)',
+        background: 'var(--bg-secondary)',
+        transition: 'border-color .3s',
+      }}>
         <input
           id={id}
           type="number"
@@ -82,15 +96,29 @@ export default function InputField({
           value={value || ''}
           onChange={handleChange}
           disabled={disabled}
-          className="flex-1 bg-transparent text-right px-3 py-2 text-sm focus:outline-none disabled:opacity-40"
-          style={{
-            fontFamily: "'IBM Plex Mono', monospace",
-            color: isNegative ? '#E53935' : '#F4EDE4',
-          }}
           placeholder="0"
+          style={{
+            flex: 1,
+            background: 'transparent',
+            border: 'none',
+            textAlign: 'right',
+            padding: '10px 14px',
+            fontSize: '.85rem',
+            fontFamily: 'var(--ff-mono)',
+            color: isNegative ? '#f87171' : 'var(--text-primary)',
+            outline: 'none',
+            opacity: disabled ? 0.4 : 1,
+            width: '100%',
+          }}
         />
         {suffix && (
-          <span className="pr-3 text-xs whitespace-nowrap" style={{ color: '#7C8DB0' }}>
+          <span style={{
+            paddingRight: '12px',
+            fontSize: '.72rem',
+            fontFamily: 'var(--ff-mono)',
+            color: 'var(--text-muted)',
+            whiteSpace: 'nowrap',
+          }}>
             {suffix}
           </span>
         )}

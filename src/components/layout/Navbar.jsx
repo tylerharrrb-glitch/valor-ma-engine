@@ -1,7 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useDeal } from '../../context/DealContext';
 import { DollarSign } from 'lucide-react';
-import ValorMark from '../shared/ValorMark';
 
 export default function Navbar({ analystOpen, setAnalystOpen }) {
   const { state, dispatch } = useDeal();
@@ -18,46 +17,39 @@ export default function Navbar({ analystOpen, setAnalystOpen }) {
     if (editingFx && fxRef.current) fxRef.current.focus();
   }, [editingFx]);
 
-  const handleNameBlur = () => {
-    setEditingName(false);
-  };
-
-  const handleNameKeyDown = (e) => {
-    if (e.key === 'Enter') setEditingName(false);
-  };
-
-  const handleFxBlur = () => {
-    setEditingFx(false);
-  };
+  const handleNameBlur = () => setEditingName(false);
+  const handleNameKeyDown = (e) => { if (e.key === 'Enter') setEditingName(false); };
+  const handleFxBlur = () => setEditingFx(false);
 
   const toggleCurrency = () => {
-    dispatch({
-      type: 'SET_CURRENCY',
-      payload: state.currency === 'EGP' ? 'USD' : 'EGP',
-    });
+    dispatch({ type: 'SET_CURRENCY', payload: state.currency === 'EGP' ? 'USD' : 'EGP' });
   };
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center justify-between px-4 border-b"
-         style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
+    <nav className="navbar">
       {/* Left: Logo */}
-      <div className="flex items-center gap-2.5 cursor-pointer select-none">
-        <ValorMark size={28} />
-        <span
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontWeight: 700,
-            fontSize: '1.25rem',
-            letterSpacing: '0.15em',
-            color: '#C5A44E',
-          }}
-        >
+      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <span style={{
+          fontFamily: "var(--ff-display)",
+          fontWeight: 700,
+          fontSize: '1.25rem',
+          letterSpacing: '0.15em',
+          color: 'var(--accent-gold)',
+        }}>
           VALOR
+        </span>
+        <span style={{
+          fontFamily: "var(--ff-mono)",
+          fontSize: '.72rem',
+          color: 'var(--text-muted)',
+          letterSpacing: '1px',
+        }}>
+          M&A Engine
         </span>
       </div>
 
-      {/* Center: Campaign Name */}
-      <div className="flex items-center gap-3">
+      {/* Center: Campaign Name + Status */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         {editingName ? (
           <input
             ref={nameRef}
@@ -66,56 +58,86 @@ export default function Navbar({ analystOpen, setAnalystOpen }) {
             onChange={(e) => dispatch({ type: 'SET_CAMPAIGN_NAME', payload: e.target.value })}
             onBlur={handleNameBlur}
             onKeyDown={handleNameKeyDown}
-            className="bg-transparent border-b text-center text-sm font-medium px-2 py-1 focus:outline-none"
-            style={{ borderColor: '#C5A44E', color: '#F4EDE4', fontFamily: "'Inter', sans-serif" }}
+            style={{
+              background: 'transparent',
+              border: 'none',
+              borderBottom: '1px solid var(--accent-gold)',
+              color: 'var(--text-primary)',
+              fontFamily: 'var(--ff-body)',
+              fontSize: '.85rem',
+              textAlign: 'center',
+              padding: '4px 8px',
+              outline: 'none',
+            }}
           />
         ) : (
           <button
             onClick={() => setEditingName(true)}
-            className="text-sm font-medium hover:opacity-80 transition-opacity cursor-pointer"
-            style={{ color: '#F4EDE4' }}
+            style={{
+              background: 'none', border: 'none', cursor: 'pointer',
+              color: 'var(--text-primary)',
+              fontFamily: 'var(--ff-body)',
+              fontSize: '.85rem',
+              fontWeight: 400,
+              transition: 'opacity .2s',
+            }}
+            onMouseEnter={(e) => e.target.style.opacity = '.8'}
+            onMouseLeave={(e) => e.target.style.opacity = '1'}
           >
             {state.campaignName}
           </button>
         )}
-        <span className="text-xs px-2 py-0.5 rounded-full font-medium"
-              style={{ backgroundColor: '#4CAF50', color: '#0B0F1A' }}>
+        <span style={{
+          fontSize: '.6rem',
+          fontFamily: 'var(--ff-mono)',
+          letterSpacing: '1px',
+          textTransform: 'uppercase',
+          color: '#4ade80',
+          background: 'rgba(74,222,128,.1)',
+          padding: '3px 10px',
+          borderRadius: '20px',
+          border: '1px solid rgba(74,222,128,.25)',
+        }}>
           {state.status}
         </span>
       </div>
 
-      {/* Right: Currency Toggle + FX Rate */}
-      <div className="flex items-center gap-3">
+      {/* Right: Analyst + Currency + FX + Back to Portfolio */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
         <button
           onClick={() => setAnalystOpen(prev => !prev)}
+          className={analystOpen ? 'btn-gold' : 'btn-outline'}
           style={{
             padding: '6px 14px',
-            backgroundColor: analystOpen ? '#C5A44E' : '#1A2340',
-            color: analystOpen ? '#0B0F1A' : '#C5A44E',
-            border: '1px solid #C5A44E',
-            borderRadius: '5px',
-            fontWeight: 700,
-            fontSize: '11px',
-            letterSpacing: '0.08em',
-            cursor: 'pointer',
-            transition: 'all 0.15s',
+            fontSize: '.7rem',
+            letterSpacing: '1px',
           }}
         >
           {analystOpen ? 'CLOSE ANALYST' : 'ANALYST'}
         </button>
+
         <button
           onClick={toggleCurrency}
-          className="flex items-center gap-1 text-xs font-semibold px-3 py-1.5 rounded transition-all cursor-pointer"
           style={{
-            backgroundColor: state.currency === 'EGP' ? '#C5A44E' : '#2C3E6B',
-            color: state.currency === 'EGP' ? '#0B0F1A' : '#F4EDE4',
+            display: 'inline-flex', alignItems: 'center', gap: '4px',
+            fontFamily: 'var(--ff-mono)',
+            fontSize: '.72rem',
+            fontWeight: 500,
+            letterSpacing: '1px',
+            padding: '6px 14px',
+            borderRadius: '4px',
+            border: '1px solid var(--border)',
+            background: state.currency === 'EGP' ? 'var(--accent-gold)' : 'transparent',
+            color: state.currency === 'EGP' ? 'var(--bg-primary)' : 'var(--text-secondary)',
+            cursor: 'pointer',
+            transition: 'all .3s var(--ease)',
           }}
         >
-          <DollarSign className="w-3.5 h-3.5" />
-          {state.currency === 'EGP' ? 'EGP' : 'USD'}
+          <DollarSign style={{ width: 14, height: 14 }} />
+          {state.currency}
         </button>
 
-        <div className="flex items-center gap-1 text-xs" style={{ color: '#7C8DB0' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', fontFamily: 'var(--ff-mono)', fontSize: '.72rem', color: 'var(--text-muted)' }}>
           <span>FX:</span>
           {editingFx ? (
             <input
@@ -125,19 +147,44 @@ export default function Navbar({ analystOpen, setAnalystOpen }) {
               value={state.fxRateUSDEGP}
               onChange={(e) => dispatch({ type: 'SET_FX_RATE', payload: parseFloat(e.target.value) || 0 })}
               onBlur={handleFxBlur}
-              className="w-16 bg-transparent border-b text-center text-xs focus:outline-none"
-              style={{ borderColor: '#C5A44E', color: '#F4EDE4', fontFamily: "'IBM Plex Mono', monospace" }}
+              style={{
+                width: 56, background: 'transparent',
+                border: 'none', borderBottom: '1px solid var(--accent-gold)',
+                color: 'var(--text-primary)',
+                fontFamily: 'var(--ff-mono)', fontSize: '.72rem',
+                textAlign: 'center', outline: 'none',
+              }}
             />
           ) : (
             <button
               onClick={() => setEditingFx(true)}
-              className="font-mono cursor-pointer hover:opacity-80"
-              style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                fontFamily: 'var(--ff-mono)', fontSize: '.72rem',
+                color: 'var(--text-primary)',
+              }}
             >
               {state.fxRateUSDEGP.toFixed(2)}
             </button>
           )}
         </div>
+
+        <a
+          href="https://ahmedwael.pages.dev"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{
+            fontFamily: 'var(--ff-mono)',
+            fontSize: '.75rem',
+            color: 'var(--text-muted)',
+            textDecoration: 'none',
+            transition: 'color .3s',
+          }}
+          onMouseEnter={(e) => e.target.style.color = 'var(--accent-gold)'}
+          onMouseLeave={(e) => e.target.style.color = 'var(--text-muted)'}
+        >
+          ← Portfolio
+        </a>
       </div>
     </nav>
   );

@@ -145,6 +145,7 @@ export default function PrecedentTransactions() {
   return (
     <div className="space-y-6 animate-fade-in">
       <SectionHeader
+        label="06 — PRECEDENTS"
         title="Precedent Transactions"
         subtitle="Egypt/MENA M&A transaction database — filter, analyze, and benchmark deal metrics"
       />
@@ -162,15 +163,15 @@ export default function PrecedentTransactions() {
       {/* Toolbar */}
       <div className="flex items-center gap-3 flex-wrap">
         {/* Search */}
-        <div className="flex-1 min-w-[200px] flex items-center gap-2 px-3 py-1.5 rounded border" style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
-          <Search className="w-3.5 h-3.5" style={{ color: '#7C8DB0' }} />
+        <div className="flex-1 min-w-[200px] flex items-center gap-2 px-3 py-1.5 rounded border" style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45' }}>
+          <Search className="w-3.5 h-3.5" style={{ color: '#8892A4' }} />
           <input
             type="text"
             placeholder="Search transactions..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="flex-1 text-xs bg-transparent focus:outline-none"
-            style={{ color: '#F4EDE4' }}
+            style={{ color: '#F0F4FF' }}
           />
         </div>
 
@@ -180,20 +181,20 @@ export default function PrecedentTransactions() {
         <FilterSelect label="Status" value={statusFilter} options={STATUSES} onChange={setStatusFilter} />
 
         {/* Actions */}
-        <button onClick={openAdd} className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded transition-colors cursor-pointer" style={{ backgroundColor: '#C5A44E', color: '#0B0F1A' }}>
+        <button onClick={openAdd} className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded transition-colors cursor-pointer" style={{ backgroundColor: '#C9A84C', color: '#0A0E17' }}>
           <Plus className="w-3.5 h-3.5" />Add
         </button>
-        <button onClick={sendToFairness} className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded border transition-colors cursor-pointer" style={{ borderColor: '#C5A44E', color: '#C5A44E' }} title="Send EV/EBITDA range to Fairness Opinion">
+        <button onClick={sendToFairness} className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded border transition-colors cursor-pointer" style={{ borderColor: '#C9A84C', color: '#C9A84C' }} title="Send EV/EBITDA range to Fairness Opinion">
           <Send className="w-3.5 h-3.5" />Send to Fairness
         </button>
       </div>
 
       {/* Transaction Table */}
-      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
+      <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
-              <tr style={{ backgroundColor: '#0B0F1A' }}>
+              <tr style={{ backgroundColor: '#0A0E17' }}>
                 {[
                   { key: 'name', label: 'Transaction', w: '200px' },
                   { key: 'announced', label: 'Date', w: '70px' },
@@ -209,7 +210,7 @@ export default function PrecedentTransactions() {
                   <th
                     key={col.key}
                     className="text-left px-3 py-2 font-semibold cursor-pointer select-none"
-                    style={{ color: '#C5A44E', minWidth: col.w }}
+                    style={{ color: '#C9A84C', minWidth: col.w }}
                     onClick={() => toggleSort(col.key)}
                   >
                     <span className="flex items-center gap-1">
@@ -218,13 +219,13 @@ export default function PrecedentTransactions() {
                     </span>
                   </th>
                 ))}
-                <th className="px-3 py-2" style={{ color: '#C5A44E', width: '60px' }}>Actions</th>
+                <th className="px-3 py-2" style={{ color: '#C9A84C', width: '60px' }}>Actions</th>
               </tr>
             </thead>
             <tbody>
               {filtered.length === 0 ? (
                 <tr>
-                  <td colSpan={11} className="text-center py-8" style={{ color: '#7C8DB0' }}>
+                  <td colSpan={11} className="text-center py-8" style={{ color: '#8892A4' }}>
                     <Database className="w-6 h-6 inline mb-2" /><br />
                     No transactions match your filters
                   </td>
@@ -233,29 +234,29 @@ export default function PrecedentTransactions() {
                 filtered.map((t, i) => {
                   const origIdx = txns.indexOf(t);
                   return (
-                    <tr key={t.id || i} className="border-b last:border-0 hover:opacity-80 transition-opacity cursor-pointer" style={{ backgroundColor: i % 2 === 0 ? '#1A2340' : '#1e2a4a', borderColor: 'rgba(44, 62, 107, 0.5)' }} onClick={() => openEdit(origIdx)}>
-                      <td className="px-3 py-2 font-medium" style={{ color: '#F4EDE4' }}>{t.name}</td>
-                      <td className="px-3 py-2" style={{ color: '#7C8DB0' }}>{t.announced}</td>
-                      <td className="px-3 py-2" style={{ color: '#F4EDE4' }}>{t.acquirer}</td>
-                      <td className="px-3 py-2" style={{ color: '#7C8DB0' }}>{t.targetCountry}</td>
-                      <td className="px-3 py-2" style={{ color: '#7C8DB0' }}>{t.sector}</td>
-                      <td className="px-3 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>
+                    <tr key={t.id || i} className="border-b last:border-0 hover:opacity-80 transition-opacity cursor-pointer" style={{ backgroundColor: i % 2 === 0 ? '#141B2D' : '#182236', borderColor: 'rgba(44, 62, 107, 0.5)' }} onClick={() => openEdit(origIdx)}>
+                      <td className="px-3 py-2 font-medium" style={{ color: '#F0F4FF' }}>{t.name}</td>
+                      <td className="px-3 py-2" style={{ color: '#8892A4' }}>{t.announced}</td>
+                      <td className="px-3 py-2" style={{ color: '#F0F4FF' }}>{t.acquirer}</td>
+                      <td className="px-3 py-2" style={{ color: '#8892A4' }}>{t.targetCountry}</td>
+                      <td className="px-3 py-2" style={{ color: '#8892A4' }}>{t.sector}</td>
+                      <td className="px-3 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F0F4FF' }}>
                         {t.dealValueUSD_M ? fm(t.dealValueUSD_M, 0) : '—'}
                       </td>
-                      <td className="px-3 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>
+                      <td className="px-3 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F0F4FF' }}>
                         {t.stakeAcquired ? `${fm(t.stakeAcquired, 0)}%` : '—'}
                       </td>
-                      <td className="px-3 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#C5A44E' }}>
+                      <td className="px-3 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#C9A84C' }}>
                         {t.evEBITDA ? `${fm(t.evEBITDA)}x` : '—'}
                       </td>
-                      <td className="px-3 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: t.premiumPercent > 0 ? '#4CAF50' : '#F4EDE4' }}>
+                      <td className="px-3 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: t.premiumPercent > 0 ? '#4ade80' : '#F0F4FF' }}>
                         {t.premiumPercent !== null && t.premiumPercent !== undefined ? `${fm(t.premiumPercent)}%` : '—'}
                       </td>
                       <td className="px-3 py-2">
                         <StatusBadge type={t.status === 'Completed' ? 'accretive' : t.status === 'Pending' ? 'caution' : 'neutral'} label={t.status} />
                       </td>
                       <td className="px-3 py-2" onClick={(e) => e.stopPropagation()}>
-                        <button onClick={() => deleteTransaction(origIdx)} className="text-xs px-1.5 py-0.5 rounded transition-colors cursor-pointer hover:bg-red-900/30" style={{ color: '#E53935' }}>
+                        <button onClick={() => deleteTransaction(origIdx)} className="text-xs px-1.5 py-0.5 rounded transition-colors cursor-pointer hover:bg-red-900/30" style={{ color: '#f87171' }}>
                           <X className="w-3.5 h-3.5" />
                         </button>
                       </td>
@@ -271,10 +272,10 @@ export default function PrecedentTransactions() {
       {/* Add/Edit Modal */}
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center" style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}>
-          <div className="w-full max-w-xl rounded-lg border p-5 max-h-[80vh] overflow-y-auto" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
+          <div className="w-full max-w-xl rounded-lg border p-5 max-h-[80vh] overflow-y-auto" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
             <div className="flex justify-between items-center mb-4">
-              <h3 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>{editIdx !== null ? 'Edit Transaction' : 'Add Transaction'}</h3>
-              <button onClick={() => setShowModal(false)} className="cursor-pointer" style={{ color: '#7C8DB0' }}><X className="w-4 h-4" /></button>
+              <h3 className="text-sm font-semibold" style={{ color: '#C9A84C' }}>{editIdx !== null ? 'Edit Transaction' : 'Add Transaction'}</h3>
+              <button onClick={() => setShowModal(false)} className="cursor-pointer" style={{ color: '#8892A4' }}><X className="w-4 h-4" /></button>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <ModalInput label="Transaction Name" value={formData.name} onChange={(v) => setFormData({ ...formData, name: v })} span={2} />
@@ -294,8 +295,8 @@ export default function PrecedentTransactions() {
               <ModalInput label="Notes" value={formData.notes} onChange={(v) => setFormData({ ...formData, notes: v })} span={2} />
             </div>
             <div className="flex justify-end gap-2 mt-4">
-              <button onClick={() => setShowModal(false)} className="text-xs px-3 py-1.5 rounded border cursor-pointer" style={{ borderColor: '#2C3E6B', color: '#7C8DB0' }}>Cancel</button>
-              <button onClick={saveTransaction} className="text-xs font-semibold px-4 py-1.5 rounded cursor-pointer" style={{ backgroundColor: '#C5A44E', color: '#0B0F1A' }}>Save</button>
+              <button onClick={() => setShowModal(false)} className="text-xs px-3 py-1.5 rounded border cursor-pointer" style={{ borderColor: '#1E2D45', color: '#8892A4' }}>Cancel</button>
+              <button onClick={saveTransaction} className="text-xs font-semibold px-4 py-1.5 rounded cursor-pointer" style={{ backgroundColor: '#C9A84C', color: '#0A0E17' }}>Save</button>
             </div>
           </div>
         </div>
@@ -306,9 +307,9 @@ export default function PrecedentTransactions() {
 
 function StatCard({ label, value }) {
   return (
-    <div className="p-3 rounded border" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-      <div className="text-[10px] mb-1" style={{ color: '#7C8DB0' }}>{label}</div>
-      <div className="text-sm font-bold" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>{value}</div>
+    <div className="p-3 rounded border" style={{ backgroundColor: '#141B2D', borderColor: '#1E2D45' }}>
+      <div className="text-[10px] mb-1" style={{ color: '#8892A4' }}>{label}</div>
+      <div className="text-sm font-bold" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F0F4FF' }}>{value}</div>
     </div>
   );
 }
@@ -319,7 +320,7 @@ function FilterSelect({ label, value, options, onChange }) {
       value={value}
       onChange={(e) => onChange(e.target.value)}
       className="text-xs px-2 py-1.5 rounded border focus:outline-none cursor-pointer"
-      style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B', color: '#F4EDE4' }}
+      style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45', color: '#F0F4FF' }}
       title={label}
     >
       {options.map((o) => <option key={o} value={o}>{o === 'All' ? `${label}: All` : o}</option>)}
@@ -330,13 +331,13 @@ function FilterSelect({ label, value, options, onChange }) {
 function ModalInput({ label, value, onChange, type = 'text', span = 1 }) {
   return (
     <div className={span === 2 ? 'col-span-2' : ''}>
-      <label className="text-[10px] font-medium block mb-1" style={{ color: '#7C8DB0' }}>{label}</label>
+      <label className="text-[10px] font-medium block mb-1" style={{ color: '#8892A4' }}>{label}</label>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="w-full text-xs px-2 py-1.5 rounded border focus:outline-none focus:border-[#C5A44E] transition-colors"
-        style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B', color: '#F4EDE4', fontFamily: type === 'number' ? "'IBM Plex Mono', monospace" : undefined }}
+        className="w-full text-xs px-2 py-1.5 rounded border focus:outline-none focus:border-[#C9A84C] transition-colors"
+        style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45', color: '#F0F4FF', fontFamily: type === 'number' ? "'IBM Plex Mono', monospace" : undefined }}
       />
     </div>
   );
@@ -345,12 +346,12 @@ function ModalInput({ label, value, onChange, type = 'text', span = 1 }) {
 function ModalSelect({ label, value, options, onChange }) {
   return (
     <div>
-      <label className="text-[10px] font-medium block mb-1" style={{ color: '#7C8DB0' }}>{label}</label>
+      <label className="text-[10px] font-medium block mb-1" style={{ color: '#8892A4' }}>{label}</label>
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="w-full text-xs px-2 py-1.5 rounded border focus:outline-none cursor-pointer"
-        style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B', color: '#F4EDE4' }}
+        style={{ backgroundColor: '#0A0E17', borderColor: '#1E2D45', color: '#F0F4FF' }}
       >
         {options.map((o) => <option key={o} value={o}>{o}</option>)}
       </select>

@@ -27,7 +27,6 @@ export default function MergerModel() {
     dispatch({ type: 'UPDATE_DEAL_TERMS', payload: { [field]: value } });
   }, [dispatch]);
 
-  // Syncing stock + cash = 100%
   const handleCashPctChange = useCallback((val) => {
     const capped = Math.min(100, Math.max(0, val));
     dispatch({ type: 'UPDATE_DEAL_TERMS', payload: { cashPercent: capped, stockPercent: 100 - capped } });
@@ -39,27 +38,36 @@ export default function MergerModel() {
   }, [dispatch]);
 
   return (
-    <div className="animate-fade-in space-y-8">
+    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
       <SectionHeader
-        title="Merger Model — Accretion / Dilution"
+        label="01 — MERGER MODEL"
+        title="Accretion / Dilution Analysis"
         subtitle="Determine whether the proposed acquisition is accretive or dilutive to the acquirer's EPS"
       />
 
       {/* ── INPUTS ── */}
-      <div className="grid grid-cols-3 gap-6">
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '24px' }}>
         {/* Acquirer */}
-        <div className="p-4 rounded-lg border" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-          <div className="flex items-center gap-2 mb-4">
-            <h3 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Acquirer</h3>
+        <div className="card" style={{ padding: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+            <span className="section-label" style={{ marginBottom: 0 }}>Acquirer</span>
             <input
-              className="text-sm bg-transparent border-b px-1 focus:outline-none"
-              style={{ borderColor: '#2C3E6B', color: '#F4EDE4' }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                borderBottom: '1px solid var(--border)',
+                color: 'var(--text-primary)',
+                fontFamily: 'var(--ff-body)',
+                fontSize: '.85rem',
+                padding: '2px 4px',
+                outline: 'none',
+              }}
               placeholder="Company Name"
               value={state.acquirerName}
               onChange={(e) => dispatch({ type: 'SET_ACQUIRER_NAME', payload: e.target.value })}
             />
           </div>
-          <div className="space-y-3">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <InputField label="Revenue LTM" value={acquirer.revenue} onChange={(v) => updateAcq('revenue', v)} tooltip="Last Twelve Months total revenue" />
             <InputField label="EBITDA LTM" value={acquirer.ebitda} onChange={(v) => updateAcq('ebitda', v)} tooltip="Earnings Before Interest, Tax, Depreciation & Amortization" />
             <InputField label="EBIT LTM" value={acquirer.ebit} onChange={(v) => updateAcq('ebit', v)} tooltip="EBITDA minus Depreciation & Amortization" />
@@ -74,18 +82,26 @@ export default function MergerModel() {
         </div>
 
         {/* Target */}
-        <div className="p-4 rounded-lg border" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-          <div className="flex items-center gap-2 mb-4">
-            <h3 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>Target</h3>
+        <div className="card" style={{ padding: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
+            <span className="section-label" style={{ marginBottom: 0 }}>Target</span>
             <input
-              className="text-sm bg-transparent border-b px-1 focus:outline-none"
-              style={{ borderColor: '#2C3E6B', color: '#F4EDE4' }}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                borderBottom: '1px solid var(--border)',
+                color: 'var(--text-primary)',
+                fontFamily: 'var(--ff-body)',
+                fontSize: '.85rem',
+                padding: '2px 4px',
+                outline: 'none',
+              }}
               placeholder="Company Name"
               value={state.targetName}
               onChange={(e) => dispatch({ type: 'SET_TARGET_NAME', payload: e.target.value })}
             />
           </div>
-          <div className="space-y-3">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <InputField label="Revenue LTM" value={target.revenue} onChange={(v) => updateTgt('revenue', v)} tooltip="Last Twelve Months total revenue" />
             <InputField label="EBITDA LTM" value={target.ebitda} onChange={(v) => updateTgt('ebitda', v)} />
             <InputField label="EBIT LTM" value={target.ebit} onChange={(v) => updateTgt('ebit', v)} />
@@ -100,23 +116,32 @@ export default function MergerModel() {
         </div>
 
         {/* Deal Terms */}
-        <div className="p-4 rounded-lg border" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-          <h3 className="text-sm font-semibold mb-4" style={{ color: '#C5A44E' }}>Deal Terms</h3>
-          <div className="space-y-3">
+        <div className="card" style={{ padding: '24px' }}>
+          <span className="section-label" style={{ marginBottom: '16px' }}>Deal Terms</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <InputField label="Offer Price per Share" value={dealTerms.offerPricePerShare} onChange={(v) => updateDeal('offerPricePerShare', v)} suffix="EGP" required />
             <InputField label="Cash Consideration" value={dealTerms.cashPercent} onChange={handleCashPctChange} suffix="%" tooltip="% of purchase price paid in cash" step={1} min={0} max={100} />
             <InputField label="Stock Consideration" value={dealTerms.stockPercent} onChange={handleStockPctChange} suffix="%" tooltip="% of purchase price paid in acquirer stock" step={1} min={0} max={100} />
             <InputField label="New Debt for Cash %" value={dealTerms.newDebtForCashPercent} onChange={(v) => updateDeal('newDebtForCashPercent', v)} suffix="%" tooltip="% of cash component funded by new acquisition debt" step={1} />
             <InputField label="New Debt Interest Rate" value={dealTerms.newDebtInterestRate} onChange={(v) => updateDeal('newDebtInterestRate', v)} suffix="%" tooltip="Annual interest rate on acquisition financing" step={0.1} />
 
-            <div className="pt-2 border-t" style={{ borderColor: '#2C3E6B' }}>
-              <div className="flex items-center gap-2 mb-2">
-                <label className="text-xs font-medium" style={{ color: '#7C8DB0' }}>Synergy Convention</label>
+            <div style={{ paddingTop: '8px', borderTop: '1px solid var(--border)' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px' }}>
+                <label className="valor-label" style={{ marginBottom: 0 }}>Synergy Convention</label>
                 <select
                   value={dealTerms.synergiesInputConvention}
                   onChange={(e) => updateDeal('synergiesInputConvention', e.target.value)}
-                  className="text-xs px-2 py-1 rounded border focus:outline-none cursor-pointer"
-                  style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B', color: '#F4EDE4' }}
+                  style={{
+                    fontFamily: 'var(--ff-mono)',
+                    fontSize: '.72rem',
+                    padding: '4px 8px',
+                    borderRadius: '4px',
+                    background: 'var(--bg-secondary)',
+                    border: '1px solid var(--border)',
+                    color: 'var(--text-primary)',
+                    cursor: 'pointer',
+                    outline: 'none',
+                  }}
                 >
                   <option value="Pre-Tax">Pre-Tax</option>
                   <option value="After-Tax">After-Tax</option>
@@ -134,18 +159,28 @@ export default function MergerModel() {
 
       {/* ── ALERTS ── */}
       {calc?.cashShortfall && (
-        <div className="flex items-center gap-2 px-4 py-3 rounded border" style={{ backgroundColor: 'rgba(229, 57, 53, 0.1)', borderColor: '#E53935' }}>
-          <AlertTriangle className="w-4 h-4 flex-shrink-0" style={{ color: '#E53935' }} />
-          <span className="text-sm font-medium" style={{ color: '#E53935' }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: '8px',
+          padding: '12px 16px', borderRadius: '8px',
+          background: 'rgba(248,113,113,.08)',
+          border: '1px solid rgba(248,113,113,.25)',
+        }}>
+          <AlertTriangle style={{ width: 16, height: 16, color: '#f87171', flexShrink: 0 }} />
+          <span style={{ fontFamily: 'var(--ff-mono)', fontSize: '.82rem', color: '#f87171' }}>
             Attention Required: Cash drawn (EGP {formatNumber(calc.cashDrawnFromBalance)}M) exceeds available balance (EGP {formatNumber(acquirer.cash)}M)
           </span>
         </div>
       )}
 
       {calc?.isBargainPurchase && (
-        <div className="flex items-center gap-2 px-4 py-3 rounded border" style={{ backgroundColor: 'rgba(76, 175, 80, 0.1)', borderColor: '#4CAF50' }}>
-          <AlertTriangle className="w-4 h-4 flex-shrink-0" style={{ color: '#4CAF50' }} />
-          <span className="text-sm font-medium" style={{ color: '#4CAF50' }}>
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: '8px',
+          padding: '12px 16px', borderRadius: '8px',
+          background: 'rgba(74,222,128,.08)',
+          border: '1px solid rgba(74,222,128,.25)',
+        }}>
+          <AlertTriangle style={{ width: 16, height: 16, color: '#4ade80', flexShrink: 0 }} />
+          <span style={{ fontFamily: 'var(--ff-mono)', fontSize: '.82rem', color: '#4ade80' }}>
             Bargain Purchase: Negative goodwill of EGP {formatNumber(Math.abs(calc.goodwillCreated))}M — record as gain
           </span>
         </div>
@@ -153,9 +188,9 @@ export default function MergerModel() {
 
       {/* ── OUTPUTS ── */}
       {calc && (
-        <div className="space-y-6">
-          {/* Deal Metrics */}
-          <div className="grid grid-cols-2 gap-6">
+        <>
+          {/* Deal Metrics & Structure */}
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
             <OutputPanel title="Deal Metrics">
               <OutputRow label="Purchase Price (Equity Value)" value={formatCurrency(calc.purchasePriceEquity)} />
               <OutputRow label="Enterprise Value of Target" value={formatCurrency(calc.targetEnterpriseValue)} />
@@ -175,7 +210,7 @@ export default function MergerModel() {
             </OutputPanel>
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
             <OutputPanel title="Combined Entity">
               <OutputRow label="Pro-Forma Shares Outstanding" value={`${formatNumber(calc.proFormaSharesOutstanding, 3)}M shares`} />
               <OutputRow label="Goodwill Created" value={formatCurrency(calc.goodwillCreated)} highlight={calc.isBargainPurchase} />
@@ -198,8 +233,8 @@ export default function MergerModel() {
                   key={`ad-${i}`}
                   label={`Accretion / (Dilution) — Year ${i + 1}`}
                   value={
-                    <span className="flex items-center gap-2">
-                      <span style={{ color: ad >= 0 ? '#4CAF50' : '#E53935', fontFamily: "'IBM Plex Mono', monospace" }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <span style={{ color: ad >= 0 ? '#4ade80' : '#f87171', fontFamily: 'var(--ff-mono)' }}>
                         {ad >= 0 ? '+' : ''}{formatNumber(ad, 2)}%
                       </span>
                       <StatusBadge
@@ -215,14 +250,14 @@ export default function MergerModel() {
 
           {/* Contribution Analysis */}
           <OutputPanel title="Contribution Analysis">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+            <div style={{ overflowX: 'auto' }}>
+              <table className="fin-table">
                 <thead>
-                  <tr style={{ backgroundColor: '#0B0F1A' }}>
-                    <th className="text-left px-4 py-2 font-semibold" style={{ color: '#C5A44E' }}>Metric</th>
-                    <th className="text-right px-4 py-2 font-semibold" style={{ color: '#C5A44E' }}>{state.acquirerName || 'Acquirer'}</th>
-                    <th className="text-right px-4 py-2 font-semibold" style={{ color: '#C5A44E' }}>{state.targetName || 'Target'}</th>
-                    <th className="text-right px-4 py-2 font-semibold" style={{ color: '#C5A44E' }}>Combined</th>
+                  <tr>
+                    <th style={{ textAlign: 'left' }}>Metric</th>
+                    <th>{state.acquirerName || 'Acquirer'}</th>
+                    <th>{state.targetName || 'Target'}</th>
+                    <th>Combined</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -231,12 +266,12 @@ export default function MergerModel() {
                     { label: 'EBITDA', a: calc.contribution.acquirerEBITDA, t: calc.contribution.targetEBITDA },
                     { label: 'Net Income', a: calc.contribution.acquirerNI, t: calc.contribution.targetNI },
                     { label: 'Ownership', a: calc.contribution.acquirerOwnership, t: calc.contribution.targetOwnership },
-                  ].map((row, i) => (
-                    <tr key={row.label} style={{ backgroundColor: i % 2 === 0 ? '#1A2340' : '#1e2a4a' }}>
-                      <td className="px-4 py-2 font-medium" style={{ color: '#F4EDE4' }}>{row.label}</td>
-                      <td className="px-4 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>{formatNumber(row.a, 1)}%</td>
-                      <td className="px-4 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#F4EDE4' }}>{formatNumber(row.t, 1)}%</td>
-                      <td className="px-4 py-2 text-right" style={{ fontFamily: "'IBM Plex Mono', monospace", color: '#C5A44E' }}>100.0%</td>
+                  ].map((row) => (
+                    <tr key={row.label}>
+                      <td>{row.label}</td>
+                      <td>{formatNumber(row.a, 1)}%</td>
+                      <td>{formatNumber(row.t, 1)}%</td>
+                      <td style={{ color: 'var(--accent-gold)' }}>100.0%</td>
                     </tr>
                   ))}
                 </tbody>
@@ -255,7 +290,7 @@ export default function MergerModel() {
               currentSynergy={calc.afterTaxSynergies[0]}
             />
           )}
-        </div>
+        </>
       )}
     </div>
   );
@@ -263,11 +298,23 @@ export default function MergerModel() {
 
 function OutputPanel({ title, children }) {
   return (
-    <div className="rounded-lg border overflow-hidden" style={{ backgroundColor: '#1A2340', borderColor: '#2C3E6B' }}>
-      <div className="px-4 py-2 border-b" style={{ backgroundColor: '#0B0F1A', borderColor: '#2C3E6B' }}>
-        <h3 className="text-sm font-semibold" style={{ color: '#C5A44E' }}>{title}</h3>
+    <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
+      <div style={{
+        padding: '12px 20px',
+        borderBottom: '1px solid var(--border)',
+        background: 'var(--bg-secondary)',
+      }}>
+        <h3 style={{
+          fontFamily: 'var(--ff-mono)',
+          fontSize: '.72rem',
+          fontWeight: 500,
+          letterSpacing: '2px',
+          textTransform: 'uppercase',
+          color: 'var(--accent-gold)',
+          margin: 0,
+        }}>{title}</h3>
       </div>
-      <div className="p-4 space-y-2">
+      <div style={{ padding: '16px 20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
         {children}
       </div>
     </div>
@@ -276,15 +323,24 @@ function OutputPanel({ title, children }) {
 
 function OutputRow({ label, value, highlight = false }) {
   return (
-    <div className="flex items-center justify-between py-1 border-b last:border-0" style={{ borderColor: 'rgba(44, 62, 107, 0.5)' }}>
-      <span className="text-xs" style={{ color: '#7C8DB0' }}>{label}</span>
-      <span
-        className="text-sm font-medium"
-        style={{
-          fontFamily: typeof value === 'string' ? "'IBM Plex Mono', monospace" : undefined,
-          color: highlight ? '#E53935' : '#F4EDE4',
-        }}
-      >
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      padding: '6px 0',
+      borderBottom: '1px solid rgba(30,45,69,.4)',
+    }}>
+      <span style={{
+        fontFamily: 'var(--ff-body)',
+        fontSize: '.82rem',
+        color: 'var(--text-secondary)',
+      }}>{label}</span>
+      <span style={{
+        fontFamily: 'var(--ff-mono)',
+        fontSize: '.85rem',
+        fontWeight: 500,
+        color: highlight ? '#f87171' : 'var(--text-primary)',
+      }}>
         {value}
       </span>
     </div>

@@ -1,7 +1,8 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { DealProvider, useDeal } from './context/DealContext';
 import Navbar from './components/layout/Navbar';
-import Sidebar from './components/layout/Sidebar';
+import ModuleBar from './components/layout/ModuleBar';
+import HeroStrip from './components/layout/HeroStrip';
 import CommandCenter from './components/dashboard/CommandCenter';
 import MergerModel from './components/merger/MergerModel';
 import SourcesUses from './components/sources-uses/SourcesUses';
@@ -23,10 +24,25 @@ function LBOModule() {
   return <><LBOEntry calc={calc} /><LBOOperating calc={calc} /><LBOOutputs calc={calc} /></>;
 }
 
+// Scroll-reveal observer
+function useReveal() {
+  const containerRef = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    if (containerRef.current) {
+      containerRef.current.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }
+    return () => observer.disconnect();
+  });
+  return containerRef;
+}
+
 function AppContent() {
   const { state } = useDeal();
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [analystOpen, setAnalystOpen] = useState(false);
+  const containerRef = useReveal();
 
   const dealData = useMemo(() => ({
     campaign: {
@@ -70,30 +86,54 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: '#0B0F1A' }}>
+    <div style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
       <Navbar analystOpen={analystOpen} setAnalystOpen={setAnalystOpen} />
-      <Sidebar />
+      {/* Spacer for fixed navbar */}
+      <div style={{ height: 64 }} />
+      <ModuleBar />
+
+      {/* Hero strip — show on dashboard */}
+      {state.activeModule === 'command-center' && <HeroStrip />}
+
       <main
-        className="pt-14 transition-all duration-300"
+        ref={containerRef}
         style={{
-          marginLeft: '200px',
+          paddingTop: state.activeModule === 'command-center' ? '0' : '32px',
           marginRight: analystOpen ? '420px' : '0',
           transition: 'margin-right 0.2s ease',
         }}
       >
-        <div className="p-6 max-w-[1400px] mx-auto">
+        <div className="valor-container" style={{ paddingTop: '32px', paddingBottom: '80px' }}>
           {renderModule()}
         </div>
 
+        {/* Section Divider */}
+        <div className="section-divider" style={{ margin: '0 auto 0' }}></div>
+
         {/* Footer */}
-        <footer className="mt-12 px-6 py-4 border-t text-center" style={{ borderColor: '#2C3E6B' }}>
-          <p className="text-xs" style={{ color: '#7C8DB0' }}>
-            Valor parameters are calibrated to Egyptian law and CBE rates as of Q4 2024. Tax rates, regulatory thresholds,
-            and CBE interest rates are subject to change. Users must verify current rates with qualified legal and tax advisors
-            before relying on this engine for actual transactions. This engine does not constitute legal, tax, or financial advisory services.
+        <footer style={{ padding: '40px 0', textAlign: 'center', borderTop: '1px solid var(--border)' }}>
+          <p style={{
+            fontFamily: 'var(--ff-mono)',
+            fontSize: '.78rem',
+            color: 'var(--text-secondary)',
+            margin: 0,
+          }}>
+            VALOR M&A Engine · Built by{' '}
+            <a
+              href="https://ahmedwael.pages.dev"
+              style={{ color: 'var(--accent-gold)', textDecoration: 'none' }}
+            >
+              Ahmed Wael Metwally
+            </a>
+            {' '}· Cairo, Egypt
           </p>
-          <p className="text-xs mt-2" style={{ color: '#2C3E6B' }}>
-            ⟐ Valor M&A Engine | Part of the Wolf Financial Suite
+          <p style={{
+            fontFamily: 'var(--ff-mono)',
+            fontSize: '.68rem',
+            color: 'var(--text-muted)',
+            marginTop: '8px',
+          }}>
+            Merger Modeling · LBO Analysis · Synergy Quantification · Calibrated to Egyptian Law & FRA Requirements
           </p>
         </footer>
       </main>
@@ -103,23 +143,6 @@ function AppContent() {
         isOpen={analystOpen}
         onClose={() => setAnalystOpen(false)}
       />
-    </div>
-  );
-}
-
-function PlaceholderModule({ name, desc }) {
-  return (
-    <div className="animate-fade-in flex flex-col items-center justify-center py-20">
-      <div className="text-4xl mb-4">🔒</div>
-      <h2 className="text-xl font-bold mb-2" style={{ fontFamily: "'Playfair Display', serif", color: '#C5A44E' }}>
-        {name}
-      </h2>
-      <p className="text-sm text-center max-w-md" style={{ color: '#7C8DB0' }}>
-        {desc}
-      </p>
-      <p className="text-xs mt-4 px-3 py-1.5 rounded" style={{ backgroundColor: '#1A2340', color: '#7C8DB0' }}>
-        Module deployment scheduled — next session
-      </p>
     </div>
   );
 }
